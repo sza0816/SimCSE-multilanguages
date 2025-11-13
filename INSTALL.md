@@ -3,7 +3,7 @@
 If you are using SeaWulf!!
 
 Do NOT install packages in your home directory.
-Always create the environment in SCRATCH:
+Always create the environment in SCRATCH folder:
 
 module load gcc/12.1.0
 module load python/3.9.7

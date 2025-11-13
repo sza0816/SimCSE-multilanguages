@@ -3,7 +3,7 @@ import argparse
 from transformers import AutoTokenizer, TrainingArguments, Trainer
 from datasets import load_dataset
 from simcse_model import SimCSEModel
-from data_collator_unsup import DataCollatorForSimCSE
+from data_collator.data_collator_unsup import DataCollatorForSimCSE
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -13,6 +13,7 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=5e-5)
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--data_path", type=str, required=True)
     return parser.parse_args()
 
 def main():
@@ -20,7 +21,7 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
-    dataset = load_dataset("text", data_files="data/wiki1m_for_simcse.txt")["train"]
+    dataset = load_dataset("text", data_files=args.data_path)["train"]
     dataset = dataset.map(
         lambda x: {"sentence": x["text"]},
         num_proc=4

@@ -12,8 +12,11 @@ class SimCSEModel(nn.Module):
 
     def encode(self, input_ids, attention_mask):
         """Encode sentence and return normalized CLS vector."""
-        outputs = self.encoder(input_ids=input_ids, attention_mask=attention_mask)
-        cls = outputs.last_hidden_state[:, 0]          # CLS
+        outputs = self.encoder(
+            input_ids=input_ids,
+            attention_mask=attention_mask
+        )
+        cls = outputs.last_hidden_state[:, 0]
         return nn.functional.normalize(cls, dim=-1)
 
     def forward(self,
@@ -21,48 +24,40 @@ class SimCSEModel(nn.Module):
                 pos_input_ids=None, pos_attention_mask=None,
                 neg_input_ids=None, neg_attention_mask=None):
 
-        # ------------------------------
-        #   UNSUPERVISED SIMCSE
-        # ------------------------------
+        # -------------------------------UNSUPERVISED SIMCSE-------------------------------
         if not self.supervised:
-            # two dropout views of SAME input
+            # two dropout views
             z1 = self.encode(input_ids, attention_mask)
             z2 = self.encode(input_ids, attention_mask)
 
-            # concatenate -> shape: (2N, hidden)
-            z = torch.cat([z1, z2], dim=0)
-
-            # pairwise similarity
+            z = torch.cat([z1, z2], dim=0)  # (2N, hidden)
             sim = torch.matmul(z, z.T) / self.temperature
 
             N = z1.size(0)
+
+            # labels: [N..2N-1, 0..N-1]
             labels = torch.arange(N, device=z.device)
             labels = torch.cat([labels + N, labels], dim=0)
 
-            # mask self-similarity
+            # mask self
             mask = torch.eye(2 * N, device=z.device).bool()
             sim = sim.masked_fill(mask, -1e12)
 
             loss = nn.CrossEntropyLoss()(sim, labels)
+            return {"loss": loss}
 
-            return {"loss": loss, "embeddings": z1}
+        # -------------------------------SUPERVISED SIMCSE-------------------------------
+        anchor = self.encode(input_ids, attention_mask)
+        positive = self.encode(pos_input_ids, pos_attention_mask)
 
-        # ------------------------------
-        #   SUPERVISED SIMCSE
-        # ------------------------------
+        if neg_input_ids is not None:
+            negative = self.encode(neg_input_ids, neg_attention_mask)
+            embeddings = torch.cat([positive, negative], dim=0)
         else:
-            anchor = self.encode(input_ids, attention_mask)
-            positive = self.encode(pos_input_ids, pos_attention_mask)
+            embeddings = positive
 
-            if neg_input_ids is not None:
-                negative = self.encode(neg_input_ids, neg_attention_mask)
-                embeddings = torch.cat([positive, negative], dim=0)
-            else:
-                embeddings = positive
+        sim = torch.matmul(anchor, embeddings.T) / self.temperature
+        labels = torch.zeros(anchor.size(0), dtype=torch.long, device=sim.device)
 
-            sim = torch.matmul(anchor, embeddings.T) / self.temperature
-
-            labels = torch.zeros(anchor.size(0), dtype=torch.long, device=sim.device)
-            loss = nn.CrossEntropyLoss()(sim, labels)
-
-            return {"loss": loss, "embeddings": anchor}
+        loss = nn.CrossEntropyLoss()(sim, labels)
+        return {"loss": loss}

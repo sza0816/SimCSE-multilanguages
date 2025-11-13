@@ -8,7 +8,7 @@ class DataCollatorForSimCSE:
 
     def __call__(self, features):
 
-        # normal batch
+        # pad input normally
         batch = self.tokenizer.pad(
             features,
             padding="max_length",
@@ -16,14 +16,7 @@ class DataCollatorForSimCSE:
             return_tensors="pt"
         )
 
-        # IMPORTANT: deep copy tensors
-        batch_dup = {
-            "input_ids": batch["input_ids"].clone(),
-            "attention_mask": batch["attention_mask"].clone()
-        }
-
-        # rename for model forward
-        batch["input_ids_dup"] = batch_dup["input_ids"]
-        batch["attention_mask_dup"] = batch_dup["attention_mask"]
+        # No duplication needed for UNSUP SimCSE
+        # dropout in the model will create two views internally
 
         return batch
