@@ -1,20 +1,17 @@
 #!/bin/bash
-#SBATCH --job-name=simcse
+#SBATCH --job-name=test_gpu
 #SBATCH --partition=a100
 #SBATCH --gres=gpu:1
-#SBATCH --time=06:00:00
-#SBATCH --cpus-per-task=4
-#SBATCH --mem=32G
-#SBATCH --output=train_log.out
-#SBATCH --error=train_err.out
+#SBATCH --time=00:03:00
+#SBATCH --output=test_gpu.out
 
-# 1. Load modules
-module load anaconda3
-source activate simcse
+module load gcc/12.1.0
+module load python/3.9.7
 
-# 2. (Optional) Print environment information
-echo "Running on GPU:"
-nvidia-smi
+source /gpfs/scratch/zshang/simcse_env/bin/activate
 
-# 3. Start training
-python train.py
+python - << 'EOF'
+import torch
+print("CUDA available:", torch.cuda.is_available())
+print("Device:", torch.cuda.get_device_name(0))
+EOF
