@@ -7,13 +7,14 @@ from data_collator.data_collator_unsup import DataCollatorForSimCSE
 
 def parse_args():
     parser = argparse.ArgumentParser()
+    parser.add_argument("--data_path", type=str, required=True)
+    parser.add_argument("--output_dir", type=str, required=True)
     parser.add_argument("--model_name", type=str, default="bert-base-uncased")
     parser.add_argument("--epochs", type=float, default=1.0)
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--lr", type=float, default=5e-5)
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
-    parser.add_argument("--data_path", type=str, required=True)
     return parser.parse_args()
 
 def main():
@@ -33,7 +34,7 @@ def main():
     )
 
     training_args = TrainingArguments(
-        output_dir="./ckpt_unsup",
+        output_dir=args.output_dir,
         per_device_train_batch_size=args.batch_size,
         learning_rate=args.lr,
         num_train_epochs=args.epochs,
