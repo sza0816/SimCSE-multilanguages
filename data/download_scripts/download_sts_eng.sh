@@ -3,29 +3,35 @@ set -e
 
 # Download English STS-B evaluation data into data/english/STS-B/original/
 
-BASE_DIR="data/english"
-TARGET_DIR="${BASE_DIR}/STS-B"
-ORIGINAL_DIR="${TARGET_DIR}/original"
+BASE_DIR="data/english/STS-B/original"
 
+echo "Preparing STS-B data in ${BASE_DIR} ..."
 mkdir -p "${BASE_DIR}"
 
-echo "Downloading STS-B.zip into ${BASE_DIR} ..."
-wget -O "${BASE_DIR}/STS-B.zip" \
-  https://dl.fbaipublicfiles.com/glue/data/STS-B.zip
+python - << 'EOF'
+import os
+from datasets import load_dataset
 
-echo "Unzipping..."
-unzip "${BASE_DIR}/STS-B.zip" -d "${BASE_DIR}"
+base_dir = "data/english/STS-B/original"
+os.makedirs(base_dir, exist_ok=True)
 
-echo "Cleaning up zip file..."
-rm "${BASE_DIR}/STS-B.zip"
+print("Loading GLUE STS-B from Hugging Face ...")
 
-# Keep only the original/ folder (which contains sts-dev/test/train.tsv)
-# Remove duplicate files from STS-B root level
-echo "Removing duplicate root-level STS-B files..."
-rm -f "${TARGET_DIR}/dev.tsv" \
-      "${TARGET_DIR}/test.tsv" \
-      "${TARGET_DIR}/train.tsv" \
-      "${TARGET_DIR}/LICENSE.txt" \
-      "${TARGET_DIR}/readme.txt" 2>/dev/null || true
+ds = load_dataset("glue", "stsb")
 
-echo "Done. STS-B data saved under ${ORIGINAL_DIR}"
+split_map = {
+    "train": "sts-train.tsv",
+    "validation": "sts-dev.tsv",
+    "test": "sts-test.tsv",
+}
+
+for split, filename in split_map.items():
+    df = ds[split].to_pandas()
+    out_path = os.path.join(base_dir, filename)
+    df.to_csv(out_path, sep="\t", index=False)
+    print(f"Wrote {split} split to {out_path} with {len(df)} rows")
+
+print("All STS-B splits written.")
+EOF
+
+echo "Done. STS-B data saved under ${BASE_DIR}"

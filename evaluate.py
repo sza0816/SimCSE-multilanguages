@@ -8,6 +8,10 @@ from transformers import AutoModel, AutoTokenizer
 from torch.nn.functional import normalize
 import os
 
+
+os.environ["TRANSFORMERS_NO_ADVISORY_WARNINGS"] = "true"
+os.environ["TRANSFORMERS_VERBOSITY"] = "error"
+
 def detect_columns(df):
     col_s1 = None
     col_s2 = None
@@ -31,7 +35,6 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--device", type=str, default="cuda")
-    parser.add_argument("--quiet", action="store_true", help="Only output Spearman value.")
     return parser.parse_args()
 
 
@@ -112,19 +115,21 @@ def main():
 
     # Spearman correlation
     sp = spearmanr(cos_sim, scores).correlation
-    if args.quiet:
-        print(f"{sp:.4f}")
-    else:
-        print("\n--- Evaluation Result ---")
-        print(f"File: {args.test_file}")
-        print(f"Model: {args.model_path}")
-        print(f"Number of sentence pairs: {len(df)}")
-        print(f"Spearman correlation: {sp:.4f}")
 
-        # Append summary to summary.txt in the script directory
-        summary_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "summary.txt")
-        with open(summary_path, "a") as f:
-            f.write(f"{args.test_file}\t{sp:.4f}\n")
+    print("\n--- Evaluation Result ---")
+    print(f"File: {args.test_file}")
+    print(f"Model: {args.model_path}")
+    print(f"Number of sentence pairs: {len(df)}")
+    print(f"Spearman: {sp:.4f}",flush = True)
+
+    # Write summary into the model's evaluation folder
+    eval_dir = os.path.join(args.model_path, "../eval")
+    eval_dir = os.path.abspath(eval_dir)
+
+    os.makedirs(eval_dir, exist_ok=True)
+    summary_path = os.path.join(eval_dir, "summary.txt")
+    with open(summary_path, "a") as f:
+        f.write(f"{os.path.basename(args.test_file)}\t{sp:.4f}\n")
 
 
 if __name__ == "__main__":

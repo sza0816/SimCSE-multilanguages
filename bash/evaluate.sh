@@ -14,9 +14,9 @@ OUTPUT_SUMMARY="./outputs/${LANG}/${TASK}/eval/summary.txt"
 LOG_FILE="./outputs/${LANG}/${TASK}/eval/eval.log"
 # STS-B evaluation files (TSV)
 TASK_FILES=(
-    "../../data/english/sts/original/sts-dev.tsv"
-    "../../data/english/sts/original/sts-test.tsv"
-    "../../data/english/sts/original/sts-train.tsv"
+    "../../data/english/STS-B/original/sts-dev.tsv"
+    "../../data/english/STS-B/original/sts-test.tsv"
+    "../../data/english/STS-B/original/sts-train.tsv"
 )
 
 SUMMARY="${OUTPUT_SUMMARY}"

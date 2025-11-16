@@ -57,5 +57,9 @@ def main():
     trainer.train()
     trainer.save_model(args.output_dir)
 
+    # Ensure full HF model folder (including config.json) is saved
+    model.save_pretrained(args.output_dir)
+    tokenizer.save_pretrained(args.output_dir)
+
 if __name__ == "__main__":
     main()
