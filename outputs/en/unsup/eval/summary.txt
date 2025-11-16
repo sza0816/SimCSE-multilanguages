@@ -1,0 +1,5 @@
+===== Starting Evaluation =====
+
+sts-dev.tsv   0.3018
+sts-test.tsv   nan
+sts-train.tsv   0.2144

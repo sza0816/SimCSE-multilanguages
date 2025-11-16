@@ -1,0 +1,120 @@
+Sun Nov 16 05:51:26 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               On  |   00000000:03:00.0 Off |                  Off |
+|  0%   29C    P8             16W /  230W |       0MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+sts-dev.tsv   
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+sts-test.tsv   
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+sts-train.tsv   
+Sun Nov 16 05:52:22 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               On  |   00000000:03:00.0 Off |                  Off |
+|  0%   30C    P8             16W /  230W |       0MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+Loaded 1500 sentence pairs from file: ./data/english/STS-B/original/sts-dev.tsv
+
+--- Evaluation Result ---
+File: ./data/english/STS-B/original/sts-dev.tsv
+Model: ./outputs/en/unsup/checkpoints
+Number of sentence pairs: 1500
+Spearman: 0.3018
+sts-dev.tsv   0.3018
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+Loaded 1379 sentence pairs from file: ./data/english/STS-B/original/sts-test.tsv
+
+--- Evaluation Result ---
+File: ./data/english/STS-B/original/sts-test.tsv
+Model: ./outputs/en/unsup/checkpoints
+Number of sentence pairs: 1379
+Spearman: nan
+sts-test.tsv   nan
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+Loaded 5749 sentence pairs from file: ./data/english/STS-B/original/sts-train.tsv
+
+--- Evaluation Result ---
+File: ./data/english/STS-B/original/sts-train.tsv
+Model: ./outputs/en/unsup/checkpoints
+Number of sentence pairs: 5749
+Spearman: 0.2144
+sts-train.tsv   0.2144
+Sun Nov 16 05:59:02 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.95.05              Driver Version: 580.95.05      CUDA Version: 13.0     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               On  |   00000000:03:00.0 Off |                  Off |
+|  0%   29C    P8             16W /  230W |       0MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+Loaded 1500 sentence pairs from file: ./data/english/STS-B/original/sts-dev.tsv
+
+--- Evaluation Result ---
+File: ./data/english/STS-B/original/sts-dev.tsv
+Model: ./outputs/en/unsup/checkpoints
+Number of sentence pairs: 1500
+Spearman: 0.3018
+sts-dev.tsv   0.3018
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+Loaded 1379 sentence pairs from file: ./data/english/STS-B/original/sts-test.tsv
+
+--- Evaluation Result ---
+File: ./data/english/STS-B/original/sts-test.tsv
+Model: ./outputs/en/unsup/checkpoints
+Number of sentence pairs: 1379
+Spearman: nan
+sts-test.tsv   nan
+⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...
+Loaded 5749 sentence pairs from file: ./data/english/STS-B/original/sts-train.tsv
+
+--- Evaluation Result ---
+File: ./data/english/STS-B/original/sts-train.tsv
+Model: ./outputs/en/unsup/checkpoints
+Number of sentence pairs: 5749
+Spearman: 0.2144
+sts-train.tsv   0.2144

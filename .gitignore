@@ -6,7 +6,7 @@ data/english/unsup/wiki1m_for_simcse.txt
 data/english/STS-B/original
 
 
-outputs
+outputs/en/unsup/checkpoints
 
 # small sub-datasets generated for testing only
 # wiki1k.txt
