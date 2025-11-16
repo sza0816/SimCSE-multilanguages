@@ -1,11 +1,11 @@
 __pycache__
 
-data/wiki1m_for_simcse.txt
-data/nli_for_simcse.csv
+data/chinese
+data/english
+data/hindi
 
-STS-B
 outputs
 
 # small sub-datasets generated for testing only
-wiki1k.txt
-wiki50k.txt
+# wiki1k.txt
+# wiki50k.txt

@@ -13,7 +13,7 @@ LR=3e-5
 WARMUP_RATIO=0.1
 
 # data path in local repo
-DATA_PATH="./data/wiki1m_for_simcse.txt"
+DATA_PATH="./data/english/unsup/wiki_for_simcse.txt"
 
 # checkpoint in local repo
 OUTPUT_DIR="./outputs/${LANG}/${TASK}/checkpoints"
