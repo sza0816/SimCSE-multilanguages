@@ -14,9 +14,9 @@ OUTPUT_SUMMARY="./outputs/${LANG}/${TASK}/eval/summary.txt"
 LOG_FILE="./outputs/${LANG}/${TASK}/eval/eval.log"
 # STS-B evaluation files (TSV)
 TASK_FILES=(
-    "../../data/english/STS-B/original/sts-dev.tsv"
-    "../../data/english/STS-B/original/sts-test.tsv"
-    "../../data/english/STS-B/original/sts-train.tsv"
+    "./data/english/STS-B/original/sts-dev.tsv"
+    "./data/english/STS-B/original/sts-test.tsv"
+    "./data/english/STS-B/original/sts-train.tsv"
 )
 
 SUMMARY="${OUTPUT_SUMMARY}"
@@ -42,3 +42,10 @@ rm -f tmp_eval.log
 echo "===== EVALUATION DONE ====="
 
 # Run with:  bash bash/evaluate.sh
+
+
+# Note: sts-test.tsv has no label, thus no spearman corr, don't touch it for now, can remove it in the future
+
+# Note: orginal simcse used the full wiki dump for training, thus reaching spearman corr of ~0.8
+# since we only use the 1m dataset, it is normal to get much lower corr values (0.2~0.4)
+# The official simcse paper also only evaluated model performance on sts-dev.tsv

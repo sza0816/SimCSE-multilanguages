@@ -1,8 +1,10 @@
 __pycache__
 
-data/chinese
-data/english
-data/hindi
+
+data/english/sup/nli_for_simcse.csv
+data/english/unsup/wiki1m_for_simcse.txt
+data/english/STS-B/original
+
 
 outputs
 

@@ -73,8 +73,27 @@ def main():
     args = parse_args()
 
     # Load model + tokenizer
-    tokenizer = AutoTokenizer.from_pretrained(args.model_path)
-    model = AutoModel.from_pretrained(args.model_path)
+    from safetensors.torch import load_file
+    from transformers import AutoConfig
+
+    # Detect whether this is a HF directory or a custom SimCSE checkpoint
+    config_json = os.path.join(args.model_path, "config.json")
+    safetensor_path = os.path.join(args.model_path, "model.safetensors")
+
+    if os.path.exists(config_json):
+        tokenizer = AutoTokenizer.from_pretrained(args.model_path)
+        model = AutoModel.from_pretrained(args.model_path)
+    else:
+        # Fallback: load BERT base and then load SimCSE weights
+        print("⚠️ No config.json found. Loading base BERT and applying SimCSE state_dict...")
+        tokenizer = AutoTokenizer.from_pretrained("bert-base-uncased")
+        model = AutoModel.from_pretrained("bert-base-uncased")
+
+        if not os.path.exists(safetensor_path):
+            raise FileNotFoundError(f"Expected {safetensor_path} but not found.")
+
+        state_dict = load_file(safetensor_path)
+        model.load_state_dict(state_dict, strict=False)
 
     device = args.device
     if device.startswith("cuda") and not torch.cuda.is_available():
@@ -122,14 +141,6 @@ def main():
     print(f"Number of sentence pairs: {len(df)}")
     print(f"Spearman: {sp:.4f}",flush = True)
 
-    # Write summary into the model's evaluation folder
-    eval_dir = os.path.join(args.model_path, "../eval")
-    eval_dir = os.path.abspath(eval_dir)
-
-    os.makedirs(eval_dir, exist_ok=True)
-    summary_path = os.path.join(eval_dir, "summary.txt")
-    with open(summary_path, "a") as f:
-        f.write(f"{os.path.basename(args.test_file)}\t{sp:.4f}\n")
 
 
 if __name__ == "__main__":

@@ -4,6 +4,7 @@ from transformers import AutoTokenizer, TrainingArguments, Trainer
 from datasets import load_dataset
 from simcse_model import SimCSEModel
 from data_collator.data_collator_unsup import DataCollatorForSimCSE
+import os, torch
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -55,10 +56,12 @@ def main():
     )
 
     trainer.train()
-    trainer.save_model(args.output_dir)
 
-    # Ensure full HF model folder (including config.json) is saved
-    model.save_pretrained(args.output_dir)
+    os.makedirs(args.output_dir, exist_ok=True)
+
+    torch.save(model.state_dict(), os.path.join(args.output_dir, "pytorch_model.bin"))
+    with open(os.path.join(args.output_dir, "config.txt"), "w") as f:
+        f.write(model.encoder.name_or_path)
     tokenizer.save_pretrained(args.output_dir)
 
 if __name__ == "__main__":
