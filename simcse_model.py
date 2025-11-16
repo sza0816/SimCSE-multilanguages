@@ -41,7 +41,7 @@ class SimCSEModel(nn.Module):
 
             # mask self
             mask = torch.eye(2 * N, device=z.device).bool()
-            sim = sim.masked_fill(mask, -1e12)
+            sim = sim.masked_fill(mask, -1e4)
 
             loss = nn.CrossEntropyLoss()(sim, labels)
             return {"loss": loss}

@@ -35,7 +35,7 @@ def main():
         logging_steps=50,
         remove_unused_columns=False,
         seed=args.seed,
-        fp16=False
+        fp16=True
     )
 
     model = SimCSEModel(args.model_name)

@@ -41,14 +41,16 @@ echo "MODEL = $MODEL_NAME"
 mkdir -p "./outputs/${LANG}/${TASK}/checkpoints"
 mkdir -p "./outputs/${LANG}/${TASK}/logs"
 
+LOG_FILE="./outputs/${LANG}/${TASK}/logs/train_$(date +%Y%m%d_%H%M%S).log"
+
 python train_unsup.py \
     --model_name $MODEL_NAME \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
     --lr $LR \
     --data_path $DATA_PATH \
-    --output_dir $OUTPUT_DIR
+    --output_dir $OUTPUT_DIR | tee "$LOG_FILE"
 
 echo "===== TRAINING DONE ====="
 
-# Run with:  bash train.sh
+# Run with:  bash bash/train.sh
