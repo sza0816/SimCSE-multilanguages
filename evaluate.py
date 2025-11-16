@@ -6,6 +6,23 @@ import pandas as pd
 from scipy.stats import spearmanr
 from transformers import AutoModel, AutoTokenizer
 from torch.nn.functional import normalize
+import os
+
+def detect_columns(df):
+    col_s1 = None
+    col_s2 = None
+    col_score = None
+    for c in df.columns:
+        lc = c.lower()
+        if col_s1 is None and ("sentence1" in lc or "sent1" in lc or "s1" == lc or "seq1" in lc):
+            col_s1 = c
+        if col_s2 is None and ("sentence2" in lc or "sent2" in lc or "s2" == lc or "seq2" in lc):
+            col_s2 = c
+        if col_score is None and ("score" in lc or "label" in lc or "gold" in lc or "gold_score" in lc or "similarity" in lc):
+            col_score = c
+    if col_s1 is None or col_s2 is None or col_score is None:
+        raise ValueError("Could not auto-detect sentence1/sentence2/score columns in test file.")
+    return col_s1, col_s2, col_score
 
 def parse_args():
     parser = argparse.ArgumentParser()
@@ -14,6 +31,7 @@ def parse_args():
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--device", type=str, default="cuda")
+    parser.add_argument("--quiet", action="store_true", help="Only output Spearman value.")
     return parser.parse_args()
 
 
@@ -32,7 +50,14 @@ def encode(model, tokenizer, sentences, batch_size=64, max_len=32, device="cuda"
         ).to(device)
 
         with torch.no_grad():
-            outputs = model(**inputs)
+            if device.startswith("cuda"):
+                try:
+                    with torch.cuda.amp.autocast():
+                        outputs = model(**inputs)
+                except Exception:
+                    outputs = model(**inputs)
+            else:
+                outputs = model(**inputs)
             # SimCSE representation = CLS hidden state
             embeddings = outputs.last_hidden_state[:, 0]
             embeddings = normalize(embeddings, dim=-1)
@@ -47,29 +72,59 @@ def main():
     # Load model + tokenizer
     tokenizer = AutoTokenizer.from_pretrained(args.model_path)
     model = AutoModel.from_pretrained(args.model_path)
-    model.to(args.device)
+
+    device = args.device
+    if device.startswith("cuda") and not torch.cuda.is_available():
+        print("CUDA not available. Falling back to CPU.")
+        device = "cpu"
+
+    model.to(device)
     model.eval()
 
-    # Load dataset
-    df = pd.read_csv(args.test_file)
+    # Load dataset with automatic separator detection
+    df = pd.read_csv(args.test_file, sep="\t")
+    if len(df.columns) < 3:
+        df = pd.read_csv(args.test_file, sep=",")
 
-    sents1 = df["sentence1"].tolist()
-    sents2 = df["sentence2"].tolist()
-    scores = df["score"].tolist()
+    col_s1, col_s2, col_score = detect_columns(df)
 
-    print(f"Loaded {len(df)} sentence pairs.")
+    # Drop rows where score column cannot be converted to float (skip headers or invalid rows)
+    def is_float(x):
+        try:
+            float(x)
+            return True
+        except:
+            return False
+    df = df[df[col_score].apply(is_float)]
+
+    sents1 = df[col_s1].astype(str).tolist()
+    sents2 = df[col_s2].astype(str).tolist()
+    scores = df[col_score].astype(float).tolist()
+
+    print(f"Loaded {len(df)} sentence pairs from file: {args.test_file}")
 
     # Encode both sides
-    emb1 = encode(model, tokenizer, sents1, args.batch_size, args.max_len, args.device)
-    emb2 = encode(model, tokenizer, sents2, args.batch_size, args.max_len, args.device)
+    emb1 = encode(model, tokenizer, sents1, args.batch_size, args.max_len, device)
+    emb2 = encode(model, tokenizer, sents2, args.batch_size, args.max_len, device)
 
     # Cosine similarity
     cos_sim = (emb1 * emb2).sum(axis=1)
 
     # Spearman correlation
     sp = spearmanr(cos_sim, scores).correlation
-    print("\n==== Evaluation Result ====")
-    print(f"Spearman correlation: {sp:.4f}")
+    if args.quiet:
+        print(f"{sp:.4f}")
+    else:
+        print("\n--- Evaluation Result ---")
+        print(f"File: {args.test_file}")
+        print(f"Model: {args.model_path}")
+        print(f"Number of sentence pairs: {len(df)}")
+        print(f"Spearman correlation: {sp:.4f}")
+
+        # Append summary to summary.txt in the script directory
+        summary_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "summary.txt")
+        with open(summary_path, "a") as f:
+            f.write(f"{args.test_file}\t{sp:.4f}\n")
 
 
 if __name__ == "__main__":

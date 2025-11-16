@@ -23,15 +23,8 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
 
     dataset = load_dataset("text", data_files=args.data_path)["train"]
-    dataset = dataset.map(
-        lambda x: {"sentence": x["text"]},
-        num_proc=4
-    )
-    dataset = dataset.map(
-        lambda e: tokenizer(e["sentence"], truncation=True, max_length=args.max_len),
-        batched=True,
-        num_proc=4,
-    )
+    # Keep raw text so the data collator can create two augmented views.
+    # Ensure the column name is "text" for the collator.
 
     training_args = TrainingArguments(
         output_dir=args.output_dir,
@@ -42,11 +35,11 @@ def main():
         logging_steps=50,
         remove_unused_columns=False,
         seed=args.seed,
-        # fp16=True
+        fp16=False
     )
 
     model = SimCSEModel(args.model_name)
-    data_collator = DataCollatorForSimCSE(tokenizer)
+    data_collator = DataCollatorForSimCSE(tokenizer, max_length=args.max_len)
 
     trainer = Trainer(
         model=model,

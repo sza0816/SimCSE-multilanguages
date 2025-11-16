@@ -1,2 +1,10 @@
+__pycache__
+
 data/wiki1m_for_simcse.txt
 data/nli_for_simcse.csv
+
+STS-B
+
+# small sub-datasets generated for testing only
+wiki1k.txt
+wiki50k.txt

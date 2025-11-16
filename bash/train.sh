@@ -1,13 +1,4 @@
 #!/bin/bash
-#SBATCH --job-name=simcse_unsup_en
-#SBATCH --partition=a100
-#SBATCH --gres=gpu:1
-#SBATCH --time=08:00:00
-#SBATCH --output=simcse_%j.out
-#SBATCH --error=simcse_%j.err
-#SBATCH --mem=32G
-#SBATCH --cpus-per-task=4
-
 set -e
 
 ###########################################################
@@ -16,36 +7,20 @@ set -e
 TASK="unsup"                     # unsup / sup （only run unsup now）
 LANG="en"                        # en / ch / hi
 MODEL_NAME="bert-base-uncased"
-EPOCHS=0.02
+EPOCHS=1
 BATCH_SIZE=64
-LR=5e-5
+LR=3e-5
 
-# data path in scratch - only for english unsup for now
-DATA_PATH="/gpfs/scratch/zshang/simcse/data/wiki1m_for_simcse.txt"
+# data path in local repo
+DATA_PATH="./data/wiki1m_for_simcse.txt"
 
-# checkpoint in scratch 
-OUTPUT_DIR="/gpfs/scratch/zshang/simcse/ckpt_unsup_en"
+# checkpoint in local repo
+OUTPUT_DIR="./outputs/${LANG}/${TASK}/checkpoints"
 ###########################################################
 
 
-echo "===== LOADING MODULES ====="
-module load gcc/12.1.0
-module load python/3.9.7
-
-echo "===== ACTIVATE ENV ====="
-source /gpfs/scratch/zshang/simcse_env/bin/activate
-python --version
-
 echo "===== GPU INFO ====="
 nvidia-smi
-
-echo "===== SET HF CACHE ====="
-export HF_HOME=/gpfs/scratch/zshang/hf_cache
-mkdir -p $HF_HOME
-
-echo "===== ENTER PROJECT DIR ====="
-cd /gpfs/home/zshang/simcse
-echo "PWD = $(pwd)"
 
 ###########################################################
 #       OPTIONAL: Auto-select model by language
@@ -62,6 +37,10 @@ echo "MODEL = $MODEL_NAME"
 ###########################################################
 #                     RUN TRAINING
 ###########################################################
+# create output directories
+mkdir -p "./outputs/${LANG}/${TASK}/checkpoints"
+mkdir -p "./outputs/${LANG}/${TASK}/logs"
+
 python train_unsup.py \
     --model_name $MODEL_NAME \
     --epochs $EPOCHS \
@@ -72,4 +51,4 @@ python train_unsup.py \
 
 echo "===== TRAINING DONE ====="
 
-# sbatch /gpfs/home/zshang/simcse/slurm/train.slurm
+# Run with:  bash train.sh
