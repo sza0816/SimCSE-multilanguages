@@ -15,6 +15,7 @@ def parse_args():
     parser.add_argument("--lr", type=float, default=5e-5)
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--warmup_ratio", type=float, default=0.0)
     return parser.parse_args()
 
 def main():
@@ -38,7 +39,7 @@ def main():
 
         # ---- Stability & Speed ----
         fp16=True,                # mixed precision for speed
-        warmup_ratio=0.1,         # prevent collapse
+        warmup_ratio=args.warmup_ratio,         # prevent collapse
         optim="adamw_torch_fused" # faster & more stable on modern GPUs
     )
 
