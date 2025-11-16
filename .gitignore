@@ -4,6 +4,7 @@ data/wiki1m_for_simcse.txt
 data/nli_for_simcse.csv
 
 STS-B
+outputs
 
 # small sub-datasets generated for testing only
 wiki1k.txt

@@ -41,7 +41,7 @@ echo "MODEL = $MODEL_NAME"
 mkdir -p "./outputs/${LANG}/${TASK}/checkpoints"
 mkdir -p "./outputs/${LANG}/${TASK}/logs"
 
-LOG_FILE="./outputs/${LANG}/${TASK}/logs/train_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="./outputs/${LANG}/${TASK}/logs/train.log"
 
 python train_unsup.py \
     --model_name $MODEL_NAME \

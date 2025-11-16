@@ -11,7 +11,7 @@ LANG="en"             # en / ch / hi
 
 CKPT="./outputs/${LANG}/${TASK}/checkpoints"
 OUTPUT_SUMMARY="./outputs/${LANG}/${TASK}/eval/summary.txt"
-LOG_FILE="./outputs/${LANG}/${TASK}/eval/eval_$(date +%Y%m%d_%H%M%S).log"
+LOG_FILE="./outputs/${LANG}/${TASK}/eval/eval.log"
 # STS-B evaluation files (TSV)
 TASK_FILES=(
     "../data/sts_data/sts-dev.tsv"
