@@ -35,7 +35,11 @@ def main():
         logging_steps=50,
         remove_unused_columns=False,
         seed=args.seed,
-        fp16=True
+
+        # ---- Stability & Speed ----
+        fp16=True,                # mixed precision for speed
+        warmup_ratio=0.1,         # prevent collapse
+        optim="adamw_torch_fused" # faster & more stable on modern GPUs
     )
 
     model = SimCSEModel(args.model_name)
@@ -50,6 +54,7 @@ def main():
     )
 
     trainer.train()
+    trainer.save_model(args.output_dir)
 
 if __name__ == "__main__":
     main()

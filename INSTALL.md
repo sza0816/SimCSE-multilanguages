@@ -1,6 +1,6 @@
 # Environment Setup
 
-If you are using SeaWulf!!
+**** If you are using SeaWulf!! ****
 
 Do NOT install packages in your home directory.
 Always create the environment in SCRATCH folder:

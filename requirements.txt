@@ -1,26 +1,8 @@
-# create env in cratch folder!!!
-# python -m venv /gpfs/scratch/$USER/simcse_env
-
-# activate env
-# source /gpfs/scratch/$USER/simcse_env/bin/activate
-
-# then run
-# pip install -r requirements.txt
-
-numpy==1.26.4
-torch==2.1.0+cu121
-torchvision==0.16.0+cu121
-torchaudio==2.1.0+cu121
---extra-index-url https://download.pytorch.org/whl/cu121
-
-transformers==4.30.2
-tokenizers==0.13.3
-datasets==2.14.6
+transformers>=4.40
+tokenizers>=0.15
+datasets>=2.16
+accelerate>=1.0.0
 sentencepiece
-
 scikit-learn
-accelerate==1.10.1
 pandas
-
-huggingface-hub>=0.14.1
-tqdm>=4.65.0
+tqdm

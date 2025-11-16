@@ -10,6 +10,7 @@ MODEL_NAME="bert-base-uncased"
 EPOCHS=1
 BATCH_SIZE=64
 LR=3e-5
+WARMUP_RATIO=0.1
 
 # data path in local repo
 DATA_PATH="./data/wiki1m_for_simcse.txt"
@@ -48,6 +49,7 @@ python train_unsup.py \
     --epochs $EPOCHS \
     --batch_size $BATCH_SIZE \
     --lr $LR \
+    --warmup_ratio $WARMUP_RATIO \
     --data_path $DATA_PATH \
     --output_dir $OUTPUT_DIR | tee "$LOG_FILE"
 
