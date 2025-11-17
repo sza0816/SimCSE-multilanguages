@@ -46,18 +46,24 @@ class SimCSEModel(nn.Module):
             loss = nn.CrossEntropyLoss()(sim, labels)
             return {"loss": loss}
 
-        # -------------------------------SUPERVISED SIMCSE-------------------------------
+        # ------------------------------- SUPERVISED SIMCSE (as in paper) -------------------------------
+        # anchor: (N, hidden)
         anchor = self.encode(input_ids, attention_mask)
         positive = self.encode(pos_input_ids, pos_attention_mask)
 
         if neg_input_ids is not None:
+            # hard negatives
             negative = self.encode(neg_input_ids, neg_attention_mask)
+            # concat [pos; neg] → shape (N+N_neg, hidden)
             embeddings = torch.cat([positive, negative], dim=0)
+            # label is always the index of the positive (0)
+            labels = torch.zeros(anchor.size(0), dtype=torch.long, device=anchor.device)
         else:
             embeddings = positive
+            labels = torch.zeros(anchor.size(0), dtype=torch.long, device=anchor.device)
 
+        # cosine similarity
         sim = torch.matmul(anchor, embeddings.T) / self.temperature
-        labels = torch.zeros(anchor.size(0), dtype=torch.long, device=sim.device)
-
         loss = nn.CrossEntropyLoss()(sim, labels)
+
         return {"loss": loss}

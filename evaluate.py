@@ -1,4 +1,4 @@
-# evaluate.py
+# evaluate.py - evaluate model performance in english, unsupervised version
 import argparse
 import torch
 import numpy as np

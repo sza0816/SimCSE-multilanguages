@@ -1,3 +1,6 @@
+# Local Vast.ai training script for only unsupervised learning in english
+# *** to be removed ***
+
 #!/bin/bash
 set -e
 

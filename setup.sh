@@ -4,7 +4,15 @@ set -e
 
 echo "==== SimCSE Data + Environment Setup ===="
 
+echo "Python version:"
+python3 --version
+
+echo "Pip version:"
+pip --version
+
 # ----------------- install packages ------------------
+# Install required Python packages into current environment
+# (Vast.ai main environment is OK; venv is optional)
 
 echo "==== Using current Python environment (e.g., Vast.ai main venv) ===="
 echo "Installing required Python packages into current env..."

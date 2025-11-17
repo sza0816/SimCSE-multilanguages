@@ -1,5 +1,7 @@
 #!/bin/bash
-# Local Vast.ai evaluation script
+# Local Vast.ai evaluation script for only unsupervised learning in english
+
+# *** to be removed ***
 
 set -e
 
