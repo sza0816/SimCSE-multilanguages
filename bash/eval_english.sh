@@ -4,7 +4,8 @@
 set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
-TASK="unsup"          # unsup / sup
+TASK="sup"          # unsup / sup                          *** change here ***
+
 LANG="en"             # en / ch / hi (currently only english STS-B wired up)
 
 
@@ -79,4 +80,10 @@ echo "\nSummary written to: $SUMMARY"
 
 # Unsupervised result: 
 # Spearman = 0.6854 for dev, 0.6263 for train, see outputs/en/unsup/eval
+
+# Supervised result: 
+# Spearman = 0.7315 for dev, 0.6296 for train, see outputs/en/sup/eval
+
+# Note: it is normal that supervised spearman corr's are higher than unsupervised, 
+#       the model performs better because it is trained with labels. It is the desired behavior. 
 

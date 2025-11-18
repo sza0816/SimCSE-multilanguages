@@ -7,6 +7,10 @@ data/english/STS-B/original
 
 
 outputs/en/unsup/checkpoints
+outputs/en/sup/checkpoints
+
+outputs/en/unsup/eval/eval.log
+outputs/en/sup/eval/eval.log
 
 # small sub-datasets generated for testing only
 # wiki1k.txt

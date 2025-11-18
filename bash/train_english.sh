@@ -5,8 +5,8 @@ START_TIME=$(date +%s)
 
 
 # ---------------------CONFIGURATION SECTION---------------------
-# mode = unsup / sup
-MODE="unsup"
+# mode = unsup / sup                  *** change here ***
+MODE="sup"
 
 # language = en / ch / hi              *** only english in train_english.sh for now ***
 LANG="en"
@@ -14,7 +14,7 @@ LANG="en"
 # model backbone
 MODEL_NAME="bert-base-uncased"
 
-# training hyperparameters
+# training hyperparameters             *** use same parameters for sup/unsup ***
 EPOCHS=1
 BATCH_SIZE=64
 LR=5e-5
@@ -82,11 +82,6 @@ echo "Total training time: ${ELAPSED} seconds"
 # Run with:
 #   bash bash/train_english.sh
 
-# removed
-# WARMUP_RATIO=0.1
-# echo "WARMUP_RATIO   = $WARMUP_RATIO"
-# --warmup_ratio $WARMUP_RATIO \
-
 
 # Notes: use the same training hyper-parameters for now, 
 #       with seed = 42 by default, each train will produce the same model output
@@ -96,7 +91,8 @@ echo "Total training time: ${ELAPSED} seconds"
 # unsupervised english model: 
 # {'train_runtime': 2249.0046, 'train_samples_per_second': 444.641, 'train_steps_per_second': 6.948, 'train_loss': 1.1045955181884766, 'epoch': 1.0}
 
-
+# supervised english model: 
+# {'train_runtime': 407.7674, 'train_samples_per_second': 675.878, 'train_steps_per_second': 10.562, 'train_loss': 0.003008438345838, 'epoch': 1.0}
 
 
 # *** remember to explain why the train loss is not close to 0 (this matches the paper),

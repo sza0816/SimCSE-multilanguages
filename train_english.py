@@ -86,11 +86,38 @@ def load_sup_dataset(path, tokenizer, max_len):
     dataset = load_dataset("csv", data_files=path)["train"]
 
     def tokenize_batch(batch):
-        out = {}
-        out["anchor"] = tokenizer(batch["sent0"], truncation=True, max_length=max_len)
-        out["positive"] = tokenizer(batch["sent1"], truncation=True, max_length=max_len)
-        out["hard_neg"] = tokenizer(batch["hard_neg"], truncation=True, max_length=max_len)
-        return out
+        # tokenize anchor
+        anchor = tokenizer(
+            batch["sent0"],
+            truncation=True,
+            max_length=max_len,
+        )
+        # tokenize positive
+        positive = tokenizer(
+            batch["sent1"],
+            truncation=True,
+            max_length=max_len,
+        )
+        # tokenize hard negative
+        negative = tokenizer(
+            batch["hard_neg"],
+            truncation=True,
+            max_length=max_len,
+        )
+
+        return {
+            # anchor
+            "anchor_input_ids": anchor["input_ids"],
+            "anchor_attention_mask": anchor["attention_mask"],
+
+            # positive
+            "positive_input_ids": positive["input_ids"],
+            "positive_attention_mask": positive["attention_mask"],
+
+            # negative
+            "negative_input_ids": negative["input_ids"],
+            "negative_attention_mask": negative["attention_mask"],
+        }
 
     dataset = dataset.map(tokenize_batch, batched=True)
     return dataset
