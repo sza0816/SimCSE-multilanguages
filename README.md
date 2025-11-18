@@ -70,11 +70,11 @@ Report phrasing:
 
 ```mermaid
 flowchart LR
-A[Input Dataset] --> B[Data Collator<br/>(unsup: dropout pairs / sup: NLI triplets)]
-B --> C[SimCSE Model<br/>BERT Encoder + CLS pooling]
-C --> D[Compute similarity matrix<br/>(cosine or dot product)]
-D --> E[Contrastive Objective<br/>(InfoNCE)]
-E --> F[Backprop + Optimizer]
+A["Input Dataset"] --> B["Data Collator (unsup: dropout pairs / sup: NLI triplets)"]
+B --> C["SimCSE Model (BERT Encoder + CLS pooling)"]
+C --> D["Compute similarity matrix (cosine or dot product)"]
+D --> E["Contrastive Objective (InfoNCE)"]
+E --> F["Backprop + Optimizer"]
 ```
 
 The entire experiment contains **three steps**:
