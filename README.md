@@ -68,14 +68,7 @@ Report phrasing:
 
 ## 3.0 SimCSE Training Pipeline (Diagram)
 
-```mermaid
-flowchart LR
-A["Input Dataset"] --> B["Data Collator (unsup: dropout pairs / sup: NLI triplets)"]
-B --> C["SimCSE Model (BERT Encoder + CLS pooling)"]
-C --> D["Compute similarity matrix (cosine or dot product)"]
-D --> E["Contrastive Objective (InfoNCE)"]
-E --> F["Backprop + Optimizer"]
-```
+![SimCSE Pipeline](https://mermaid.ink/img/flowchart%20LR;%0AA%5B%22Input%20Dataset%22%5D-->B%5B%22Data%20Collator%20(unsup:%20dropout%20pairs%20/%20sup:%20NLI%20triplets)%22%5D;%0AB-->C%5B%22SimCSE%20Model%20(BERT%20Encoder%20+%20CLS%20pooling)%22%5D;%0AC-->D%5B%22Compute%20similarity%20matrix%20(cosine%20or%20dot%20product)%22%5D;%0AD-->E%5B%22Contrastive%20Objective%20(InfoNCE)%22%5D;%0AE-->F%5B%22Backprop%20+%20Optimizer%22%5D;)
 
 The entire experiment contains **three steps**:
 
