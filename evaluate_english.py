@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
 
+"""
+This script evaluates a trained SimCSE checkpoint on STS-B files.
+It computes embeddings for sentence pairs, calculates their cosine similarity,
+and reports the Spearman correlation with the gold labels.
+"""
+
 import argparse
 import os
 import torch
@@ -13,6 +19,7 @@ from simcse_model import SimCSEModel
 
 
 # ---------------------Compute cosine similarity---------------------
+# Normalize embeddings and compute cosine similarity for each pair
 def cosine_sim(a, b):
     a = a / (a.norm(dim=-1, keepdim=True) + 1e-12)
     b = b / (b.norm(dim=-1, keepdim=True) + 1e-12)
@@ -20,6 +27,7 @@ def cosine_sim(a, b):
 
 
 # ---------------------Encode sentences using model---------------------
+# Encode a list of sentences batch-wise using the model's encode() method and return stacked embeddings
 def encode(model, tokenizer, sentences, device, batch_size, max_len):
     model.eval()
     all_embs = []
@@ -27,6 +35,7 @@ def encode(model, tokenizer, sentences, device, batch_size, max_len):
     with torch.no_grad():
         for i in tqdm(range(0, len(sentences), batch_size)):
             batch = sentences[i : i + batch_size]
+            # Pad/truncate inputs and move to device
             inputs = tokenizer(
                 batch,
                 padding=True,
@@ -45,6 +54,7 @@ def encode(model, tokenizer, sentences, device, batch_size, max_len):
 
 
 # ---------------------Evaluate checkpoint on a single STS-B file---------------------
+# Load the trained model, read STS-B file, encode sentence pairs, compute similarity scores, and output Spearman correlation
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--model_path", type=str, required=True,
@@ -83,6 +93,7 @@ def main():
     df = pd.read_csv(args.test_file, sep="\t")
     s1 = df["sentence1"].tolist()
     s2 = df["sentence2"].tolist()
+    # STS-B test set lacks gold labels; this will yield NaN for Spearman correlation
     gold_scores = df["label"].astype(float).tolist()
 
     # Encode

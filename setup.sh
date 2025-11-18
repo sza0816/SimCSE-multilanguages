@@ -10,7 +10,7 @@ python3 --version
 echo "Pip version:"
 pip --version
 
-# ----------------- install packages ------------------
+# ----------------- install dependences ------------------
 # Install required Python packages into current environment
 # (Vast.ai main environment is OK; venv is optional)
 
@@ -21,7 +21,7 @@ pip install -U "transformers>=4.40" "tokenizers>=0.15" \
     "datasets>=2.16" "accelerate>=1.0.0" \
     sentencepiece scikit-learn pandas tqdm
 
-# ------------------ English ------------------------
+# ------------------ English data ------------------------
 
 # 1. Download English NLI (Supervised)
 echo "[1/3] Downloading English NLI data..."
@@ -35,12 +35,12 @@ bash data/download_scripts/download_wiki_unsup.sh
 echo "[3/3] Downloading STS-B data..."
 bash data/download_scripts/download_sts_eng.sh
 
-# ------------------ Chinese -----------------------
+# ------------------ Chinese data -----------------------
 
 # echo, bash ...
 
 
-# ------------------ Hindi ----------------------
+# ------------------ Hindi data ----------------------
 
 # echo, bash ...
 
