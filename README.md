@@ -66,6 +66,17 @@ Report phrasing:
 
 ## 3. Workflow Overview (What the report should describe)
 
+## 3.0 SimCSE Training Pipeline (Diagram)
+
+```mermaid
+flowchart LR
+A[Input Dataset] --> B[Data Collator<br/>(unsup: dropout pairs / sup: NLI triplets)]
+B --> C[SimCSE Model<br/>BERT Encoder + CLS pooling]
+C --> D[Compute similarity matrix<br/>(cosine or dot product)]
+D --> E[Contrastive Objective<br/>(InfoNCE)]
+E --> F[Backprop + Optimizer]
+```
+
 The entire experiment contains **three steps**:
 
 ---
