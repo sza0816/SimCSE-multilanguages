@@ -68,7 +68,7 @@ Report phrasing:
 
 ## 3.0 SimCSE Training Pipeline (Diagram)
 
-![SimCSE Pipeline](https://mermaid.ink/img/flowchart%20LR;%0AA%5B%22Input%20Dataset%22%5D-->B%5B%22Data%20Collator%20(unsup:%20dropout%20pairs%20/%20sup:%20NLI%20triplets)%22%5D;%0AB-->C%5B%22SimCSE%20Model%20(BERT%20Encoder%20+%20CLS%20pooling)%22%5D;%0AC-->D%5B%22Compute%20similarity%20matrix%20(cosine%20or%20dot%20product)%22%5D;%0AD-->E%5B%22Contrastive%20Objective%20(InfoNCE)%22%5D;%0AE-->F%5B%22Backprop%20+%20Optimizer%22%5D;)
+![SimCSE Pipeline](https://kroki.io/mermaid/png/eNp1kUtuwzAMhl9l5p7gYggSUdsFayXSU07QZpDm1sLSskGULUL69xDGSoVOVPdvkd-RQ3t57mZr52V81Egp4cPfx97XPpbcJVWzmG44dRJ1oILbEO0Cqyb8jgK4MmLKRuUwGixYS0XW0hKXFkjZg4MCcLGmAw2storeF9-vzEQKygLdU2USq5VGlY4STXHBCbkyni2LqI5ox4A14xl9W849TtG3KUy0BtxVaCug9HYRQjFZHQMXkFyLyFBmjnt7PQ9xcXQGkgHGe1cDCwWjv3icgwJMCrAQbF89MSxjUeWWkGv9tBJm6fdfgxV6heTmtz5DNhemn0CjLAcq7_80UtTRZXVVGZ3X0CMqfXqg==)
 
 The entire experiment contains **three steps**:
 
