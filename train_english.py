@@ -30,6 +30,19 @@ import torch
 from transformers import AutoTokenizer, TrainingArguments, Trainer
 from datasets import load_dataset
 
+import random
+import numpy as np
+from datasets.utils.logging import disable_progress_bar
+disable_progress_bar()
+
+def set_seed(seed):
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
 from simcse_model import SimCSEModel
 from data_collator.data_collator_unsup import DataCollatorForSimCSE
 from data_collator.data_collator_sup import DataCollatorForSupervisedSimCSE
@@ -85,6 +98,7 @@ def load_sup_dataset(path, tokenizer, max_len):
 
 def main():
     args = parse_args()
+    set_seed(args.seed)
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     model = SimCSEModel(args.model_name)
 
@@ -103,12 +117,18 @@ def main():
         per_device_train_batch_size=args.batch_size,
         learning_rate=args.lr,
         num_train_epochs=args.epochs,
-        logging_steps=50,
+        logging_steps=200,
         save_strategy="no",
         remove_unused_columns=False,
         fp16=True,
         warmup_ratio=args.warmup_ratio,
         optim="adamw_torch",
+        seed=args.seed,
+        data_seed=args.seed,
+        disable_tqdm=True,
+        logging_dir=os.path.join(args.output_dir, "logs"),
+        logging_strategy="steps",
+        log_level="info",
     )
 
     trainer = Trainer(
