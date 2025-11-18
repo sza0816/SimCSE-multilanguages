@@ -3,10 +3,6 @@
 set -e
 START_TIME=$(date +%s)
 
-# Redirect all output to log (stdout and stderr)
-LOG_ALL="./outputs/${LANG}/${MODE}/logs/train.log"
-mkdir -p "./outputs/${LANG}/${MODE}/logs"
-exec > >(tee -a "$LOG_ALL") 2>&1
 
 # ---------------------CONFIGURATION SECTION---------------------
 # mode = unsup / sup
@@ -41,6 +37,11 @@ fi
 OUTPUT_DIR="./outputs/${LANG}/${MODE}/checkpoints"
 
 mkdir -p "$OUTPUT_DIR"
+
+# Redirect all output to log (stdout and stderr)
+LOG_ALL="./outputs/${LANG}/${MODE}/logs/train.log"
+mkdir -p "./outputs/${LANG}/${MODE}/logs"
+exec > >(tee "$LOG_ALL") 2>&1
 
 # ---------------------GPU CHECK---------------------
 echo "===== GPU INFO ====="
@@ -85,3 +86,19 @@ echo "Total training time: ${ELAPSED} seconds"
 # WARMUP_RATIO=0.1
 # echo "WARMUP_RATIO   = $WARMUP_RATIO"
 # --warmup_ratio $WARMUP_RATIO \
+
+
+# Notes: use the same training hyper-parameters for now, 
+#       with seed = 42 by default, each train will produce the same model output
+#       see outputs/.../logs/train.log
+
+
+# unsupervised english model: 
+# {'train_runtime': 2249.0046, 'train_samples_per_second': 444.641, 'train_steps_per_second': 6.948, 'train_loss': 1.1045955181884766, 'epoch': 1.0}
+
+
+
+
+# *** remember to explain why the train loss is not close to 0 (this matches the paper),
+# thus we are not plotting it, rather just use eval_english.py to produce spearman corr, 
+# just like what the paper did ***

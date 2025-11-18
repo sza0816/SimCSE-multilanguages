@@ -1,81 +1,66 @@
 #!/usr/bin/env python3
-"""
-Evaluate English SimCSE (supports both unsupervised and supervised checkpoints).
-
-This script:
-    - Loads a saved checkpoint directory
-    - Loads its backbone model (from config.txt)
-    - Loads STS-B English evaluation data
-    - Computes Spearman correlation for:
-        * STS-B dev
-        * STS-B test
-
-Usage:
-    python evaluate_english.py --ckpt_dir ckpt_unsup
-    python evaluate_english.py --ckpt_dir ckpt_sup
-"""
-
-# can be used to evaluate both sup & unsup versions
 
 import argparse
 import os
 import torch
 import numpy as np
+import pandas as pd
 from scipy.stats import spearmanr
 from tqdm import tqdm
-import pandas as pd
 
 from transformers import AutoTokenizer
 from simcse_model import SimCSEModel
 
 
-#  ---------------------Compute cosine similarity---------------------
+# ---------------------Compute cosine similarity---------------------
 def cosine_sim(a, b):
     a = a / (a.norm(dim=-1, keepdim=True) + 1e-12)
     b = b / (b.norm(dim=-1, keepdim=True) + 1e-12)
     return (a * b).sum(dim=-1)
 
 
-#  ---------------------Load STS-B (dev + test) from local---------------------
-def load_stsb():
-    dev = pd.read_csv("data/english/STS-B/original/sts-dev.tsv", sep="\t")
-    test = pd.read_csv("data/english/STS-B/original/sts-test.tsv", sep="\t")
-    return dev, test
-
-
 # ---------------------Encode sentences using model---------------------
-def encode(model, tokenizer, sentences, device):
-    all_embeddings = []
-
+def encode(model, tokenizer, sentences, device, batch_size, max_len):
     model.eval()
+    all_embs = []
+
     with torch.no_grad():
-        for i in tqdm(range(0, len(sentences), 64)):
-            batch = sentences[i : i + 64]
-            inputs = tokenizer(batch, padding=True, truncation=True,
-                               max_length=32, return_tensors="pt").to(device)
+        for i in tqdm(range(0, len(sentences), batch_size)):
+            batch = sentences[i : i + batch_size]
+            inputs = tokenizer(
+                batch,
+                padding=True,
+                truncation=True,
+                max_length=max_len,
+                return_tensors="pt",
+            ).to(device)
 
             emb = model.encode(
                 input_ids=inputs["input_ids"],
-                attention_mask=inputs["attention_mask"]
+                attention_mask=inputs["attention_mask"],
             )
-            all_embeddings.append(emb.cpu())
+            all_embs.append(emb.cpu())
 
-    return torch.cat(all_embeddings, dim=0)
+    return torch.cat(all_embs, dim=0)
 
 
-#  ---------------------Evaluate a checkpoint---------------------
+# ---------------------Evaluate checkpoint on a single STS-B file---------------------
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ckpt_dir", type=str, required=True,
-                        help="Directory that contains pytorch_model.bin + config.txt")
+    parser.add_argument("--model_path", type=str, required=True,
+                        help="Directory containing pytorch_model.bin + config.txt")
+    parser.add_argument("--test_file", type=str, required=True,
+                        help="Single STS-B TSV file to evaluate")
+    parser.add_argument("--batch_size", type=int, default=64)
+    parser.add_argument("--max_len", type=int, default=32)
     args = parser.parse_args()
 
-    ckpt_dir = args.ckpt_dir
+    ckpt_dir = args.model_path
 
     # Load backbone name
     config_path = os.path.join(ckpt_dir, "config.txt")
     if not os.path.exists(config_path):
-        raise FileNotFoundError("config.txt not found — cannot determine backbone model.")
+        raise FileNotFoundError("config.txt not found in checkpoint directory.")
 
     with open(config_path, "r") as f:
         backbone = f.read().strip()
@@ -85,34 +70,30 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained(backbone)
     model = SimCSEModel(backbone)
 
-    # Load weights
+    # Load model weights
     state_dict = torch.load(os.path.join(ckpt_dir, "pytorch_model.bin"),
                             map_location="cpu")
     model.load_state_dict(state_dict)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model.to(device)
-
     print("Device:", device)
 
-    # Load STS-B data
-    dev, test = load_stsb()
+    # Load evaluation file
+    df = pd.read_csv(args.test_file, sep="\t")
+    s1 = df["sentence1"].tolist()
+    s2 = df["sentence2"].tolist()
+    gold_scores = df["label"].astype(float).tolist()
 
-    # Encode sentences
-    for name, df in [("dev", dev), ("test", test)]:
-        print(f"\nEvaluating STS-B {name} ...")
+    # Encode
+    emb1 = encode(model, tokenizer, s1, device, args.batch_size, args.max_len)
+    emb2 = encode(model, tokenizer, s2, device, args.batch_size, args.max_len)
 
-        sents1 = df["sentence1"].tolist()
-        sents2 = df["sentence2"].tolist()
-        gold_scores = df["score"].astype(float).tolist()
+    # Compute Spearman
+    sims = cosine_sim(emb1, emb2).numpy()
+    spearman = spearmanr(sims, gold_scores).correlation
 
-        emb1 = encode(model, tokenizer, sents1, device)
-        emb2 = encode(model, tokenizer, sents2, device)
-
-        sims = cosine_sim(emb1, emb2).numpy()
-
-        spearman = spearmanr(sims, gold_scores).correlation
-        print(f"{name} Spearman: {spearman:.4f}")
+    print(f"Spearman: {spearman:.4f}")
 
 
 if __name__ == "__main__":

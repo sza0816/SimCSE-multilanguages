@@ -1,3 +1,34 @@
+===== GPU INFO =====
+Tue Nov 18 00:45:27 2025       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 550.120                Driver Version: 550.120        CUDA Version: 12.4     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA RTX A5000               On  |   00000000:81:00.0 Off |                  Off |
+| 30%   34C    P8             19W /  230W |       2MiB /  24564MiB |      0%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+===== TRAINING CONFIG =====
+MODE           = unsup
+LANG           = en
+MODEL_NAME     = bert-base-uncased
+DATA_PATH      = ./data/english/unsup/wiki1m_for_simcse.txt
+OUTPUT_DIR     = ./outputs/en/unsup/checkpoints
+BATCH_SIZE     = 64
+EPOCHS         = 1
+LR             = 5e-5
+MAX_LEN        = 32
 /workspace/SimCSE-multilanguages/train_english.py:134: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
   trainer = Trainer(
 Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
@@ -21,3 +52,82 @@ Using auto half precision backend
 {'loss': 1.107, 'grad_norm': 1.0052731037139893, 'learning_rate': 4.4256000000000005e-05, 'epoch': 0.1152}
 {'loss': 1.1062, 'grad_norm': 0.9879280924797058, 'learning_rate': 4.3616000000000004e-05, 'epoch': 0.128}
 {'loss': 1.1061, 'grad_norm': 0.8583061099052429, 'learning_rate': 4.2975999999999996e-05, 'epoch': 0.1408}
+{'loss': 1.1064, 'grad_norm': 0.8123436570167542, 'learning_rate': 4.2336e-05, 'epoch': 0.1536}
+{'loss': 1.1067, 'grad_norm': 0.892148494720459, 'learning_rate': 4.1696e-05, 'epoch': 0.1664}
+{'loss': 1.1064, 'grad_norm': 0.8215875625610352, 'learning_rate': 4.1056e-05, 'epoch': 0.1792}
+{'loss': 1.1056, 'grad_norm': 0.9246482849121094, 'learning_rate': 4.0416e-05, 'epoch': 0.192}
+{'loss': 1.106, 'grad_norm': 0.8449056148529053, 'learning_rate': 3.9776e-05, 'epoch': 0.2048}
+{'loss': 1.1049, 'grad_norm': 0.8316767811775208, 'learning_rate': 3.9136e-05, 'epoch': 0.2176}
+{'loss': 1.1058, 'grad_norm': 0.7747489213943481, 'learning_rate': 3.8496000000000005e-05, 'epoch': 0.2304}
+{'loss': 1.1054, 'grad_norm': 0.8115915656089783, 'learning_rate': 3.7856000000000005e-05, 'epoch': 0.2432}
+{'loss': 1.1053, 'grad_norm': 0.8427648544311523, 'learning_rate': 3.7216000000000004e-05, 'epoch': 0.256}
+{'loss': 1.1054, 'grad_norm': 0.7505279779434204, 'learning_rate': 3.6576e-05, 'epoch': 0.2688}
+{'loss': 1.1043, 'grad_norm': 0.880316436290741, 'learning_rate': 3.5936e-05, 'epoch': 0.2816}
+{'loss': 1.1051, 'grad_norm': 0.8028728365898132, 'learning_rate': 3.5296e-05, 'epoch': 0.2944}
+{'loss': 1.1047, 'grad_norm': 0.7575286030769348, 'learning_rate': 3.4656e-05, 'epoch': 0.3072}
+{'loss': 1.1043, 'grad_norm': 0.7647895216941833, 'learning_rate': 3.4016e-05, 'epoch': 0.32}
+{'loss': 1.1046, 'grad_norm': 0.8163934946060181, 'learning_rate': 3.3376e-05, 'epoch': 0.3328}
+{'loss': 1.1044, 'grad_norm': 0.7566627860069275, 'learning_rate': 3.2736e-05, 'epoch': 0.3456}
+{'loss': 1.1049, 'grad_norm': 0.7928603291511536, 'learning_rate': 3.2096000000000006e-05, 'epoch': 0.3584}
+{'loss': 1.1046, 'grad_norm': 0.7239410281181335, 'learning_rate': 3.1456000000000005e-05, 'epoch': 0.3712}
+{'loss': 1.1039, 'grad_norm': 0.7516154646873474, 'learning_rate': 3.0816e-05, 'epoch': 0.384}
+{'loss': 1.1041, 'grad_norm': 0.7896949648857117, 'learning_rate': 3.0175999999999997e-05, 'epoch': 0.3968}
+{'loss': 1.1043, 'grad_norm': 0.6948344707489014, 'learning_rate': 2.9536000000000003e-05, 'epoch': 0.4096}
+{'loss': 1.104, 'grad_norm': 0.6860070824623108, 'learning_rate': 2.8896000000000003e-05, 'epoch': 0.4224}
+{'loss': 1.1041, 'grad_norm': 0.7009109854698181, 'learning_rate': 2.8256e-05, 'epoch': 0.4352}
+{'loss': 1.104, 'grad_norm': 0.6942374110221863, 'learning_rate': 2.7616000000000005e-05, 'epoch': 0.448}
+{'loss': 1.1044, 'grad_norm': 0.7167989015579224, 'learning_rate': 2.6976e-05, 'epoch': 0.4608}
+{'loss': 1.1034, 'grad_norm': 0.7036304473876953, 'learning_rate': 2.6336e-05, 'epoch': 0.4736}
+{'loss': 1.1039, 'grad_norm': 0.7024903297424316, 'learning_rate': 2.5696000000000003e-05, 'epoch': 0.4864}
+{'loss': 1.1046, 'grad_norm': 0.7234912514686584, 'learning_rate': 2.5056000000000002e-05, 'epoch': 0.4992}
+{'loss': 1.1038, 'grad_norm': 0.6930810213088989, 'learning_rate': 2.4416e-05, 'epoch': 0.512}
+{'loss': 1.1033, 'grad_norm': 0.676405131816864, 'learning_rate': 2.3776e-05, 'epoch': 0.5248}
+{'loss': 1.1038, 'grad_norm': 0.696002185344696, 'learning_rate': 2.3136000000000003e-05, 'epoch': 0.5376}
+{'loss': 1.1034, 'grad_norm': 0.6297183036804199, 'learning_rate': 2.2496e-05, 'epoch': 0.5504}
+{'loss': 1.1033, 'grad_norm': 0.6680471897125244, 'learning_rate': 2.1856000000000002e-05, 'epoch': 0.5632}
+{'loss': 1.1034, 'grad_norm': 0.6710412502288818, 'learning_rate': 2.1215999999999998e-05, 'epoch': 0.576}
+{'loss': 1.1036, 'grad_norm': 0.658298134803772, 'learning_rate': 2.0576e-05, 'epoch': 0.5888}
+{'loss': 1.1033, 'grad_norm': 0.6395041346549988, 'learning_rate': 1.9936e-05, 'epoch': 0.6016}
+{'loss': 1.1034, 'grad_norm': 0.5788713097572327, 'learning_rate': 1.9296e-05, 'epoch': 0.6144}
+{'loss': 1.103, 'grad_norm': 0.6626351475715637, 'learning_rate': 1.8656000000000002e-05, 'epoch': 0.6272}
+{'loss': 1.1017, 'grad_norm': 0.7326202392578125, 'learning_rate': 1.8015999999999998e-05, 'epoch': 0.64}
+{'loss': 1.1026, 'grad_norm': 0.6713919639587402, 'learning_rate': 1.7376e-05, 'epoch': 0.6528}
+{'loss': 1.103, 'grad_norm': 0.648393452167511, 'learning_rate': 1.6736e-05, 'epoch': 0.6656}
+{'loss': 1.1022, 'grad_norm': 0.6882017850875854, 'learning_rate': 1.6096e-05, 'epoch': 0.6784}
+{'loss': 1.1028, 'grad_norm': 0.5869964957237244, 'learning_rate': 1.5456000000000002e-05, 'epoch': 0.6912}
+{'loss': 1.1026, 'grad_norm': 0.6240809559822083, 'learning_rate': 1.4816e-05, 'epoch': 0.704}
+{'loss': 1.1027, 'grad_norm': 0.6221268177032471, 'learning_rate': 1.4176000000000001e-05, 'epoch': 0.7168}
+{'loss': 1.1026, 'grad_norm': 0.6378167867660522, 'learning_rate': 1.3536000000000002e-05, 'epoch': 0.7296}
+{'loss': 1.1026, 'grad_norm': 0.6013778448104858, 'learning_rate': 1.2896e-05, 'epoch': 0.7424}
+{'loss': 1.1026, 'grad_norm': 0.6190534830093384, 'learning_rate': 1.2256000000000001e-05, 'epoch': 0.7552}
+{'loss': 1.1024, 'grad_norm': 0.6365845203399658, 'learning_rate': 1.1616e-05, 'epoch': 0.768}
+{'loss': 1.1026, 'grad_norm': 0.617328941822052, 'learning_rate': 1.0976e-05, 'epoch': 0.7808}
+{'loss': 1.1026, 'grad_norm': 0.604130744934082, 'learning_rate': 1.0336e-05, 'epoch': 0.7936}
+{'loss': 1.1015, 'grad_norm': 0.6446858048439026, 'learning_rate': 9.696000000000002e-06, 'epoch': 0.8064}
+{'loss': 1.102, 'grad_norm': 0.5805386900901794, 'learning_rate': 9.056000000000001e-06, 'epoch': 0.8192}
+{'loss': 1.1016, 'grad_norm': 0.6218178868293762, 'learning_rate': 8.416e-06, 'epoch': 0.832}
+{'loss': 1.102, 'grad_norm': 0.6367175579071045, 'learning_rate': 7.776e-06, 'epoch': 0.8448}
+{'loss': 1.1022, 'grad_norm': 0.5929743647575378, 'learning_rate': 7.136000000000001e-06, 'epoch': 0.8576}
+{'loss': 1.1023, 'grad_norm': 0.5423652529716492, 'learning_rate': 6.496000000000001e-06, 'epoch': 0.8704}
+{'loss': 1.1025, 'grad_norm': 0.6310375928878784, 'learning_rate': 5.856e-06, 'epoch': 0.8832}
+{'loss': 1.1017, 'grad_norm': 0.5711082220077515, 'learning_rate': 5.216e-06, 'epoch': 0.896}
+{'loss': 1.1015, 'grad_norm': 0.5976377725601196, 'learning_rate': 4.576000000000001e-06, 'epoch': 0.9088}
+{'loss': 1.1017, 'grad_norm': 0.6006603240966797, 'learning_rate': 3.936e-06, 'epoch': 0.9216}
+{'loss': 1.1023, 'grad_norm': 0.5872960686683655, 'learning_rate': 3.2960000000000003e-06, 'epoch': 0.9344}
+{'loss': 1.1018, 'grad_norm': 0.5723327994346619, 'learning_rate': 2.656e-06, 'epoch': 0.9472}
+{'loss': 1.1014, 'grad_norm': 0.5531736612319946, 'learning_rate': 2.0160000000000003e-06, 'epoch': 0.96}
+{'loss': 1.1015, 'grad_norm': 0.6142478585243225, 'learning_rate': 1.376e-06, 'epoch': 0.9728}
+{'loss': 1.1017, 'grad_norm': 0.5999786853790283, 'learning_rate': 7.36e-07, 'epoch': 0.9856}
+{'loss': 1.102, 'grad_norm': 0.5986379384994507, 'learning_rate': 9.600000000000001e-08, 'epoch': 0.9984}
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+{'train_runtime': 2249.0046, 'train_samples_per_second': 444.641, 'train_steps_per_second': 6.948, 'train_loss': 1.1045955181884766, 'epoch': 1.0}
+tokenizer config file saved in ./outputs/en/unsup/checkpoints/tokenizer_config.json
+Special tokens file saved in ./outputs/en/unsup/checkpoints/special_tokens_map.json
+===== TRAINING DONE =====
+Logs saved to: ./outputs/en/unsup/logs/train.log
+Checkpoints saved to: ./outputs/en/unsup/checkpoints
+Total training time: 2258 seconds

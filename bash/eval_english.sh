@@ -24,21 +24,26 @@ TASK_FILES=(
 mkdir -p "${EVAL_DIR}"
 SUMMARY="${OUTPUT_SUMMARY}"
 
+# Redirect all output to log (stdout and stderr)
+mkdir -p "${EVAL_DIR}"
+: > "$LOG_FILE"
+exec > >(tee "$LOG_FILE") 2>&1
+
 # ------------------------HEADER------------------------
 
 echo "===== Starting Evaluation (${TASK}, ${LANG}) =====" > "$SUMMARY"
 echo "" >> "$SUMMARY"
 
-echo "===== GPU INFO =====" | tee -a "$LOG_FILE"
-nvidia-smi | tee -a "$LOG_FILE"
+echo "===== GPU INFO ====="
+nvidia-smi
 
-echo "===== RUNNING EVALUATION =====" | tee -a "$LOG_FILE"
+echo "===== RUNNING EVALUATION ====="
 
 # ------------------------LOOP OVER STS-B FILES------------------------
 
 for FILE in "${TASK_FILES[@]}"; do
     BASENAME=$(basename "$FILE")
-    echo "===== Evaluating ${BASENAME} =====" | tee -a "$LOG_FILE"
+    echo "===== Evaluating ${BASENAME} ====="
 
     # evaluate.py will:
     #   * load the backbone (bert-base-uncased by default or from config.txt)
@@ -46,7 +51,7 @@ for FILE in "${TASK_FILES[@]}"; do
     #   * compute sentence embeddings + Spearman corr.
     python evaluate_english.py \
         --model_path "$CKPT" \
-        --test_file "$FILE" | tee tmp_eval.log | tee -a "$LOG_FILE"
+        --test_file "$FILE" | tee tmp_eval.log
 
     SCORE=$(grep "Spearman" tmp_eval.log | awk '{print $NF}')
     echo "${BASENAME}   ${SCORE}" >> "$SUMMARY"
@@ -58,15 +63,20 @@ done
 
 rm -f tmp_eval.log
 
-echo "===== EVALUATION DONE (${TASK}, ${LANG}) =====" | tee -a "$LOG_FILE"
+echo "===== EVALUATION DONE (${TASK}, ${LANG}) ====="
 
 echo "\nSummary written to: $SUMMARY"
 
 # Run with:
 #   bash bash/eval_english.sh                 # use defaults (unsup / en)
-#   TASK=sup LANG=en bash bash/evaluate_english.sh      # override from shell
+
 
 # Note: sts-test.tsv has no gold labels in our local copy, so Spearman may
 #       appear as NaN or be skipped depending on evaluate_english.py logic.
 # Note: Original SimCSE used full Wikipedia dump; with wiki1m_for_simcse.txt
-#       we expect lower Spearman (e.g., 0.2–0.4 on dev), which is normal.
+#       we expect lower Spearman, which is normal. 
+#       Remember to compare our result with paper, ~0.8, to say it is reasonable. 
+
+# Unsupervised result: 
+# Spearman = 0.6854 for dev, 0.6263 for train, see outputs/en/unsup/eval
+
