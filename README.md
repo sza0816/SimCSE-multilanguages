@@ -68,7 +68,14 @@ Report phrasing:
 
 ## 3.0 SimCSE Training Pipeline (Diagram)
 
-![SimCSE Pipeline](https://kroki.io/mermaid/png/eNp1kUtuwzAMhl9l5p7gYggSUdsFayXSU07QZpDm1sLSskGULUL69xDGSoVOVPdvkd-RQ3t57mZr52V81Egp4cPfx97XPpbcJVWzmG44dRJ1oILbEO0Cqyb8jgK4MmLKRuUwGixYS0XW0hKXFkjZg4MCcLGmAw2storeF9-vzEQKygLdU2USq5VGlY4STXHBCbkyni2LqI5ox4A14xl9W849TtG3KUy0BtxVaCug9HYRQjFZHQMXkFyLyFBmjnt7PQ9xcXQGkgHGe1cDCwWjv3icgwJMCrAQbF89MSxjUeWWkGv9tBJm6fdfgxV6heTmtz5DNhemn0CjLAcq7_80UtTRZXVVGZ3X0CMqfXqg==)
+```mermaid
+flowchart LR
+A["Input Dataset"] --> B["Data Collator (unsup: dropout pairs / sup: NLI triplets)"]
+B --> C["SimCSE Model (BERT Encoder + CLS pooling)"]
+C --> D["Compute similarity matrix (cosine or dot product)"]
+D --> E["Contrastive Objective (InfoNCE)"]
+E --> F["Backprop + Optimizer"]
+```
 
 The entire experiment contains **three steps**:
 
