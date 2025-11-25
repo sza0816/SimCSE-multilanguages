@@ -3,9 +3,7 @@ set -e
 
 # Download supervised NLI data for English, Chinese, Hindi into their respective folders.
 
-echo "======================"
 echo "Downloading multilingual NLI supervised data..."
-echo "======================"
 
 LANGS=("english" "chinese" "hindi")
 

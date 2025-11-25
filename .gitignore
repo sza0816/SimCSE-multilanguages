@@ -1,9 +1,9 @@
 __pycache__
 
 
-data/english/sup/nli_for_simcse.csv
-data/english/unsup/wiki1m_for_simcse.txt
-data/english/STS-B/original
+data/chinese
+data/english
+data/hindi
 
 
 outputs/en/unsup/checkpoints

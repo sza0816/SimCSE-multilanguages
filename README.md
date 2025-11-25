@@ -36,7 +36,7 @@ SimCSE-multilanguages/
 │   └── download_scripts/
 │       ├── download_wiki_unsup.sh
 │       ├── download_nli_sup.sh
-│       └── download_sts_eng.sh
+│       └── download_sts.sh
 │
 ├── data_collator/
 │   ├── data_collator_unsup.py

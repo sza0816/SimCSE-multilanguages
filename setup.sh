@@ -32,7 +32,7 @@ bash data/download_scripts/download_wiki_unsup.sh
 
 
 echo "[3/3] Downloading STS-B data (en/ch/hi)..."
-bash data/download_scripts/download_sts_eng.sh
+bash data/download_scripts/download_sts.sh
 
 # ---------------------------------------------------------
 
