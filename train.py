@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
-This is the unified training script for SimCSE, supporting both unsupervised and supervised modes.
+This is the unified training script for SimCSE, supporting both unsupervised and supervised modes,
+and multiple languages including English, Chinese, and Hindi.
 The pipeline involves loading the appropriate dataset, tokenizing, and training the SimCSE model.
 Unsupervised mode leverages dropout to create positive pairs, while supervised mode uses NLI triplets.
 The model internally uses the InfoNCE loss for contrastive learning.
@@ -49,6 +50,7 @@ def parse_args():
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--warmup_ratio", type=float, default=0.0)
+    parser.add_argument("--lang", type=str, default="en", choices=["en", "zh", "hi"])
 
     return parser.parse_args()
 

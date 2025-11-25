@@ -21,28 +21,20 @@ pip install -U "transformers>=4.40" "tokenizers>=0.15" \
     "datasets>=2.16" "accelerate>=1.0.0" \
     sentencepiece scikit-learn pandas tqdm
 
-# ------------------ English data ------------------------
+# ------------------ download data ------------------------
 
-# 1. Download English NLI (Supervised)
-echo "[1/3] Downloading English NLI data..."
+echo "[1/3] Downloading supervised data (en/ch/hi)..."
 bash data/download_scripts/download_nli_sup.sh
 
-# 2. Download English Wiki (Unsupervised)
-echo "[2/3] Downloading English Wiki unsupervised data..."
+
+echo "[2/3] Downloading Wiki unsupervised data (en/ch/hi)..."
 bash data/download_scripts/download_wiki_unsup.sh
 
-# 3. Download English STS-B
-echo "[3/3] Downloading STS-B data..."
+
+echo "[3/3] Downloading STS-B data (en/ch/hi)..."
 bash data/download_scripts/download_sts_eng.sh
 
-# ------------------ Chinese data -----------------------
-
-# echo, bash ...
-
-
-# ------------------ Hindi data ----------------------
-
-# echo, bash ...
+# ---------------------------------------------------------
 
 echo "==== All datasets downloaded successfully! ===="
 

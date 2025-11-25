@@ -4,6 +4,7 @@
 This script evaluates a trained SimCSE checkpoint on STS-B files.
 It computes embeddings for sentence pairs, calculates their cosine similarity,
 and reports the Spearman correlation with the gold labels.
+Supports evaluation for multiple languages.
 """
 
 import argparse
@@ -63,17 +64,26 @@ def main():
                         help="Single STS-B TSV file to evaluate")
     parser.add_argument("--batch_size", type=int, default=64)
     parser.add_argument("--max_len", type=int, default=32)
+    parser.add_argument("--lang", type=str, default="en", choices=["en","ch","hi"],
+                        help="Language tag for bookkeeping; not used for auto path selection yet.")
+    parser.add_argument("--backbone", type=str, default=None,
+                        help="Optional backbone name to override config.txt (e.g., bert-base-chinese).")
     args = parser.parse_args()
 
     ckpt_dir = args.model_path
 
     # Load backbone name
     config_path = os.path.join(ckpt_dir, "config.txt")
-    if not os.path.exists(config_path):
-        raise FileNotFoundError("config.txt not found in checkpoint directory.")
-
-    with open(config_path, "r") as f:
-        backbone = f.read().strip()
+    if args.backbone is not None:
+        backbone = args.backbone
+    else:
+        if not os.path.exists(config_path):
+            raise FileNotFoundError(
+                "config.txt not found in checkpoint directory. "
+                "Please pass --backbone to specify the pretrained model name."
+            )
+        with open(config_path, "r") as f:
+            backbone = f.read().strip()
 
     print(f"Loading backbone model: {backbone}")
 
@@ -93,7 +103,8 @@ def main():
     df = pd.read_csv(args.test_file, sep="\t")
     s1 = df["sentence1"].tolist()
     s2 = df["sentence2"].tolist()
-    # STS-B test set lacks gold labels; this will yield NaN for Spearman correlation
+    if "label" not in df.columns:
+        raise ValueError("Evaluation file must contain a 'label' column with gold similarity scores.")
     gold_scores = df["label"].astype(float).tolist()
 
     # Encode

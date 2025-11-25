@@ -1,13 +1,48 @@
 #!/bin/bash
 set -e
 
-# Download English NLI supervised data into data/english/sup
+# Download supervised NLI data for English, Chinese, Hindi into their respective folders.
 
-TARGET_DIR="data/english/sup"
-mkdir -p "${TARGET_DIR}"
+echo "======================"
+echo "Downloading multilingual NLI supervised data..."
+echo "======================"
 
-echo "Downloading NLI supervised data..."
-wget -O "${TARGET_DIR}/nli_for_simcse.csv" \
-  https://huggingface.co/datasets/princeton-nlp/datasets-for-simcse/resolve/main/nli_for_simcse.csv
+LANGS=("english" "chinese" "hindi")
 
-echo "Done. File saved to ${TARGET_DIR}/nli_for_simcse.csv"
+for LANG in "${LANGS[@]}"; do
+    TARGET_DIR="data/${LANG}/sup"
+    mkdir -p "${TARGET_DIR}"
+    echo ""
+    echo "---> Processing language: ${LANG}"
+
+    # Select URL + output filename per language
+    if [[ "$LANG" == "english" ]]; then
+        URL="https://huggingface.co/datasets/princeton-nlp/datasets-for-simcse/resolve/main/nli_for_simcse.csv"
+        OUT="nli_for_simcse.csv"
+        echo "English NLI source: $URL"
+
+    elif [[ "$LANG" == "chinese" ]]; then
+        # TODO: Replace placeholder with real Chinese NLI dataset URL (e.g., OCNLI or XNLI-zh)
+        URL=""
+        OUT="nli_chinese.csv"
+        echo "[NOTE] Chinese NLI URL not set. Please edit this script and add the correct URL."
+
+    elif [[ "$LANG" == "hindi" ]]; then
+        # TODO: Replace placeholder with real Hindi NLI dataset URL (e.g., IndicXNLI or XNLI-hi)
+        URL=""
+        OUT="nli_hindi.csv"
+        echo "[NOTE] Hindi NLI URL not set. Please edit this script and add the correct URL."
+    fi
+
+    # Only attempt download if URL is provided
+    if [[ -n "$URL" ]]; then
+        echo "Downloading from: $URL"
+        wget -O "${TARGET_DIR}/${OUT}" "$URL"
+        echo "Saved to ${TARGET_DIR}/${OUT}"
+    else
+        echo "Skipped downloading for ${LANG} (URL missing)."
+    fi
+done
+
+echo ""
+echo "All multilingual NLI downloads finished."

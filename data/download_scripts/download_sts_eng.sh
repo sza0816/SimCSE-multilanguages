@@ -35,3 +35,7 @@ print("All STS-B splits written.")
 EOF
 
 echo "Done. STS-B data saved under ${BASE_DIR}"
+
+
+
+# to be modified !!
