@@ -38,11 +38,14 @@ if [[ "$LANG" == "en" ]]; then
     )
 elif [[ "$LANG" == "ch" ]]; then
     TASK_FILES=(
-        "./data/chinese/STS/dev.tsv"      # placeholder !!
+        "./data/chinese/STS-B/sts-dev.tsv"
+        "./data/chinese/STS-B/sts-test.tsv"
+        "./data/chinese/STS-B/sts-train.tsv"
     )
 elif [[ "$LANG" == "hi" ]]; then
     TASK_FILES=(
-        "./data/hindi/STS/dev.tsv"        # placeholder !!
+        "./data/hindi/STS-B/sts-dev.tsv"
+        "./data/hindi/STS-B/sts-test.tsv"
     )
 fi
 

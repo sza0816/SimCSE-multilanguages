@@ -103,9 +103,22 @@ def main():
     df = pd.read_csv(args.test_file, sep="\t")
     s1 = df["sentence1"].tolist()
     s2 = df["sentence2"].tolist()
-    if "label" not in df.columns:
-        raise ValueError("Evaluation file must contain a 'label' column with gold similarity scores.")
-    gold_scores = df["label"].astype(float).tolist()
+
+    # Automatic label column detection
+    possible_labels = ["label", "score", "relatedness_score", "similarity"]
+    found_label = None
+    for col in possible_labels:
+        if col in df.columns:
+            found_label = col
+            break
+
+    if found_label is None:
+        raise ValueError(
+            f"No valid label column found. Expected one of {possible_labels}, but got {df.columns.tolist()}"
+        )
+
+    gold_scores = df[found_label].astype(float).tolist()
+    print(f"Using label column: {found_label}")
 
     # Encode
     emb1 = encode(model, tokenizer, s1, device, args.batch_size, args.max_len)
