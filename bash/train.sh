@@ -41,13 +41,13 @@ elif [[ "$LANG" == "ch" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
         DATA_PATH="./data/chinese/unsup/wiki.txt"         # !! note: modify file name 
     else
-        DATA_PATH="./data/chinese/sup/nli.csv"            # !!
+        DATA_PATH="./data/chinese/sup/nli_chinese.csv"            # !!
     fi
 elif [[ "$LANG" == "hi" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
         DATA_PATH="./data/hindi/unsup/wiki.txt"            # !!
     else
-        DATA_PATH="./data/hindi/sup/nli.csv"               # !!
+        DATA_PATH="./data/hindi/sup/nli_hindi.csv"               # !!
     fi
 else
     echo "[ERROR] Unknown LANG = $LANG"

@@ -21,13 +21,13 @@ for LANG in "${LANGS[@]}"; do
 
     elif [[ "$LANG" == "chinese" ]]; then
         # TODO: Replace placeholder with real Chinese NLI dataset URL (e.g., OCNLI or XNLI-zh)
-        URL=""
+        URL="https://huggingface.co/datasets/Peach23333/simcse-nli-multilingual/resolve/main/chinese.csv"
         OUT="nli_chinese.csv"
         echo "[NOTE] Chinese NLI URL not set. Please edit this script and add the correct URL."
 
     elif [[ "$LANG" == "hindi" ]]; then
         # TODO: Replace placeholder with real Hindi NLI dataset URL (e.g., IndicXNLI or XNLI-hi)
-        URL=""
+        URL="https://huggingface.co/datasets/Peach23333/simcse-nli-multilingual/resolve/main/hindi.csv"
         OUT="nli_hindi.csv"
         echo "[NOTE] Hindi NLI URL not set. Please edit this script and add the correct URL."
     fi
