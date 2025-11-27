@@ -9,7 +9,7 @@ START_TIME=$(date +%s)
 MODE="sup"
 
 # LANG = en / ch / hi
-LANG="en"
+LANG="ch"
 
 MODELS_EN=(
   "bert-base-uncased"

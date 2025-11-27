@@ -50,7 +50,7 @@ def parse_args():
     parser.add_argument("--max_len", type=int, default=32)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--warmup_ratio", type=float, default=0.0)
-    parser.add_argument("--lang", type=str, default="en", choices=["en", "zh", "hi"])
+    parser.add_argument("--lang", type=str, default="en", choices=["en", "ch", "hi"])
 
     return parser.parse_args()
 

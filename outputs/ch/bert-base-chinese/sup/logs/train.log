@@ -1,0 +1,31 @@
+/workspace/SimCSE-multilanguages/train.py:151: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  trainer = Trainer(
+Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+Using auto half precision backend
+***** Running training *****
+  Num examples = 152,469
+  Num Epochs = 1
+  Instantaneous batch size per device = 64
+  Total train batch size (w. parallel, distributed & accumulation) = 64
+  Gradient Accumulation steps = 1
+  Total optimization steps = 2,383
+  Number of trainable parameters = 102,267,648
+{'loss': 0.0301, 'grad_norm': 0.0017383884405717254, 'learning_rate': 4.588753671842216e-05, 'epoch': 0.0839278220730172}
+{'loss': 0.0002, 'grad_norm': 0.017658500000834465, 'learning_rate': 4.1691145614771297e-05, 'epoch': 0.1678556441460344}
+{'loss': 0.0002, 'grad_norm': 0.001416456769220531, 'learning_rate': 3.7494754511120436e-05, 'epoch': 0.2517834662190516}
+{'loss': 0.0003, 'grad_norm': 0.01871836930513382, 'learning_rate': 3.329836340746958e-05, 'epoch': 0.3357112882920688}
+{'loss': 0.0002, 'grad_norm': 0.0013356299605220556, 'learning_rate': 2.910197230381872e-05, 'epoch': 0.419639110365086}
+{'loss': 0.0003, 'grad_norm': 0.02030961960554123, 'learning_rate': 2.4905581200167857e-05, 'epoch': 0.5035669324381032}
+{'loss': 0.0001, 'grad_norm': 0.0024156158324331045, 'learning_rate': 2.0709190096516996e-05, 'epoch': 0.5874947545111204}
+{'loss': 0.0001, 'grad_norm': 0.0038576002698391676, 'learning_rate': 1.6512798992866135e-05, 'epoch': 0.6714225765841376}
+{'loss': 0.0007, 'grad_norm': 0.0026445710100233555, 'learning_rate': 1.2316407889215276e-05, 'epoch': 0.7553503986571548}
+{'loss': 0.0001, 'grad_norm': 0.006771804764866829, 'learning_rate': 8.120016785564414e-06, 'epoch': 0.839278220730172}
+{'loss': 0.0003, 'grad_norm': 0.001451793941669166, 'learning_rate': 3.923625681913554e-06, 'epoch': 0.9232060428031893}
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+{'train_runtime': 505.0337, 'train_samples_per_second': 301.899, 'train_steps_per_second': 4.718, 'train_loss': 0.0027504302014135984, 'epoch': 1.0}
+tokenizer config file saved in ./outputs/ch/bert-base-chinese/sup/checkpoints/tokenizer_config.json
+Special tokens file saved in ./outputs/ch/bert-base-chinese/sup/checkpoints/special_tokens_map.json

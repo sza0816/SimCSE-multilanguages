@@ -5,7 +5,7 @@ set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
 TASK="sup"          # sup / unsup
-LANG="en"             # en / ch / hi
+LANG="ch"             # en / ch / hi
 
 MODELS_EN=(
   "bert-base-uncased"
