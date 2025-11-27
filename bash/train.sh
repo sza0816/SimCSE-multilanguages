@@ -45,13 +45,13 @@ if [[ "$LANG" == "en" ]]; then
     fi
 elif [[ "$LANG" == "ch" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
-        DATA_PATH="./data/chinese/unsup/wiki_chinese.txt"         # !! note: modify file name 
+        DATA_PATH="./data/chinese/unsup/wiki_chinese.txt"
     else
         DATA_PATH="./data/chinese/sup/nli_chinese.csv"
     fi
 elif [[ "$LANG" == "hi" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
-        DATA_PATH="./data/hindi/unsup/wiki_hindi.txt"            # !!
+        DATA_PATH="./data/hindi/unsup/wiki_hindi.txt"
     else
         DATA_PATH="./data/hindi/sup/nli_hindi.csv"
     fi

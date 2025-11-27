@@ -19,6 +19,16 @@ mkdir -p "${TARGET_DIR_HI}"
 
 echo "Downloading hindi_corpus.txt ..."
 wget -O "${TARGET_DIR_HI}/wiki_hindi.txt" \
-  https://huggingface.co/Sindhuuu12/hindi-wikipedia-corpus/resolve/main/hindi_corpus.txt
+  https://huggingface.co/Sindhuuu12/datasets_NLP/resolve/main/hindi_corpus.txt
 
 echo "Done. Saved to ${TARGET_DIR_HI}/wiki_hindi.txt"
+
+# ---------------- Chinese wiki unsup ----------------
+TARGET_DIR_HI="data/chinese/unsup"
+mkdir -p "${TARGET_DIR_HI}"
+
+echo "Downloading chinese_corpus.txt ..."
+wget -O "${TARGET_DIR_HI}/wiki_chinese.txt" \
+  https://huggingface.co/Sindhuuu12/datasets_NLP/resolve/main/chinese_corpus.txt
+
+echo "Done. Saved to ${TARGET_DIR_HI}/wiki_chinese.txt"
