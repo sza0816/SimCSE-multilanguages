@@ -6,7 +6,7 @@ START_TIME=$(date +%s)
 # ----------------------Configuration Section !!!-------------------------
 
 # MODE = sup / unsup
-MODE="unsup"
+MODE="sup"
 
 # LANG = en / ch / hi
 LANG="en"

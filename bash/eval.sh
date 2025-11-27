@@ -4,7 +4,7 @@
 set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
-TASK="unsup"          # sup / unsup
+TASK="sup"          # sup / unsup
 LANG="en"             # en / ch / hi
 
 MODELS_EN=(
