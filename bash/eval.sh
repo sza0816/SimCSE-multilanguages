@@ -59,24 +59,23 @@ for MODEL_NAME in "${MODELS[@]}"; do
     OUTPUT_SUMMARY="${EVAL_DIR}/summary.txt"
     LOG_FILE="${EVAL_DIR}/eval.log"
     : > "$LOG_FILE"
-    exec > >(tee "$LOG_FILE") 2>&1
 
-    echo "===== Starting Evaluation (${TASK}, ${LANG}, MODEL=${MODEL_NAME}) =====" > "$OUTPUT_SUMMARY"
+    echo "===== Starting Evaluation (${TASK}, ${LANG}, MODEL=${MODEL_NAME}) =====" | tee -a "$LOG_FILE"
 
     # Loop over STS files (keep English STS-B untouched)
     for FILE in "${TASK_FILES[@]}"; do
         BASENAME=$(basename "$FILE")
-        echo "===== Evaluating ${BASENAME} ====="
+        echo "===== Evaluating ${BASENAME} =====" | tee -a "$LOG_FILE"
         python evaluate.py \
             --model_path "$CKPT" \
             --test_file "$FILE" \
-            --backbone "$MODEL_NAME" | tee tmp_eval.log
+            --backbone "$MODEL_NAME" 2>&1 | tee -a "$LOG_FILE" | tee tmp_eval.log
 
         SCORE=$(grep "Spearman" tmp_eval.log | awk '{print $NF}')
-        echo "${BASENAME}   ${SCORE}" >> "$OUTPUT_SUMMARY"
-        echo "" >> "$OUTPUT_SUMMARY"
+        echo "${BASENAME}   ${SCORE}" | tee -a "$LOG_FILE"
+        echo "" | tee -a "$LOG_FILE"
     done
 
     rm -f tmp_eval.log
-    echo "===== Evaluation Done for MODEL=${MODEL_NAME} ====="
+    echo "===== Evaluation Done for MODEL=${MODEL_NAME} =====" | tee -a "$LOG_FILE"
 done

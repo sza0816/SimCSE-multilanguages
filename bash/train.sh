@@ -35,19 +35,19 @@ if [[ "$LANG" == "en" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
         DATA_PATH="./data/english/unsup/wiki1m_for_simcse.txt"
     else
-        DATA_PATH="./data/english/sup/nli_for_simcse.csv"
+        DATA_PATH="./data/english/sup/nli_english.csv"
     fi
 elif [[ "$LANG" == "ch" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
         DATA_PATH="./data/chinese/unsup/wiki.txt"         # !! note: modify file name 
     else
-        DATA_PATH="./data/chinese/sup/nli_chinese.csv"            # !!
+        DATA_PATH="./data/chinese/sup/nli_chinese.csv"
     fi
 elif [[ "$LANG" == "hi" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
         DATA_PATH="./data/hindi/unsup/wiki.txt"            # !!
     else
-        DATA_PATH="./data/hindi/sup/nli_hindi.csv"               # !!
+        DATA_PATH="./data/hindi/sup/nli_hindi.csv"
     fi
 else
     echo "[ERROR] Unknown LANG = $LANG"

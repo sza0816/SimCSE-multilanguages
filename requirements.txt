@@ -6,3 +6,4 @@ sentencepiece
 scikit-learn
 pandas
 tqdm
+scipy>=1.7             # may be installed in resource already
