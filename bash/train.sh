@@ -18,8 +18,8 @@ MODELS_EN=(
 )
 MODELS_CH=(
 #   "bert-base-chinese"
-  "hfl/chinese-roberta-wwm-ext"
-#   "hfl/chinese-macbert-base"
+#   "hfl/chinese-roberta-wwm-ext"
+  "hfl/chinese-macbert-base"
 )
 MODELS_HI=(
 #   "bert-base-multilingual-cased"
