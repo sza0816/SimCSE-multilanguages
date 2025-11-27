@@ -9,15 +9,17 @@ START_TIME=$(date +%s)
 MODE="sup"
 
 # LANG = en / ch / hi
-LANG="en"
+LANG="ch"
 
 MODELS_EN=(
 #   "bert-base-uncased"
 #   "roberta-base"
-  "distilbert-base-uncased"
+#   "distilbert-base-uncased"
 )
 MODELS_CH=(
-  "bert-base-chinese"
+#   "bert-base-chinese"
+  "hfl/chinese-roberta-wwm-ext"
+#   "hfl/chinese-macbert-base"
 )
 MODELS_HI=(
   "bert-base-multilingual-cased"

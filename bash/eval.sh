@@ -5,16 +5,18 @@ set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
 TASK="sup"          # sup / unsup
-LANG="en"             # en / ch / hi
+LANG="ch"             # en / ch / hi
 
 MODELS_EN=(
 #   "bert-base-uncased"
 #   "roberta-base"
-  "distilbert-base-uncased"
+#   "distilbert-base-uncased"
 )
 
 MODELS_CH=(
-  "bert-base-chinese"
+#   "bert-base-chinese"
+  "hfl/chinese-roberta-wwm-ext"
+#   "hfl/chinese-macbert-base"
 )
 
 MODELS_HI=(
