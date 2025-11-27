@@ -4,13 +4,13 @@
 set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
-TASK="sup"          # sup / unsup
+TASK="unsup"          # sup / unsup
 LANG="en"             # en / ch / hi
 
 MODELS_EN=(
 #   "bert-base-uncased"
-  "roberta-base"
-#   distilbert-base-uncased
+#   "roberta-base"
+  "distilbert-base-uncased"
 )
 
 MODELS_CH=(
