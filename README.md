@@ -94,8 +94,8 @@ The script:
 - prints Python / pip / CUDA versions
 - installs required packages (transformers, datasets, accelerate, torch…)
 - downloads datasets:
-  - `wiki1m_for_simcse.txt` (unsupervised)
-  - `nli_for_simcse.csv` (supervised)
+  - `wiki_english.txt` (unsupervised)
+  - `nli_english.csv` (supervised)
   - STS‑B dev/test/train tsv files
 
 Report line:
@@ -129,7 +129,7 @@ train_english.py
 
 | Mode | Dataset | Data collator | Objective |
 |------|---------|----------------|-----------|
-| `unsup` | wiki1m | dropout‑based positive pairs | contrastive |
+| `unsup` | wiki | dropout‑based positive pairs | contrastive |
 | `sup` | NLI triples | anchor/positive/hard‑negative | supervised contrastive |
 
 Training logs are saved to:
@@ -233,7 +233,7 @@ Report writing suggestion:
 Below is a summary paragraph that group members can take as reference:
 
 > We used Vast.ai GPU instances (A5000/RTX4090) to train English SimCSE models.  
-> The environment and datasets were prepared using setup.sh, which installs dependencies and downloads wiki1m (unsupervised), NLI triples (supervised), and STS‑B benchmarks.  
+> The environment and datasets were prepared using setup.sh, which installs dependencies and downloads wiki (unsupervised), NLI triples (supervised), and STS‑B benchmarks.  
 > Our unified training script (train_english.py) supports both unsupervised and supervised modes via different data collators.  
 > After training, we evaluated sentence embeddings on STS‑B using Spearman correlation between cosine similarity and human‑annotated similarity scores.  
 > The unsupervised model achieved 0.6854 on STS‑dev, while the supervised model reached 0.7315, showing clear improvement from supervised contrastive learning.

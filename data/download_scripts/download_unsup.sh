@@ -6,11 +6,11 @@ set -e
 TARGET_DIR="data/english/unsup"
 mkdir -p "${TARGET_DIR}"
 
-echo "Downloading wiki1m_for_simcse.txt ..."
+echo "Downloading wiki_english.txt ..."
 wget -O "${TARGET_DIR}/wiki_english.txt" \
   https://huggingface.co/datasets/princeton-nlp/datasets-for-simcse/resolve/main/wiki1m_for_simcse.txt
 
-echo "Done. Saved to ${TARGET_DIR}/wiki1m_for_simcse.txt"
+echo "Done. Saved to ${TARGET_DIR}/wiki_english.txt"
 
 
 # ---------------- Hindi wiki unsup ----------------
