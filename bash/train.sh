@@ -6,13 +6,15 @@ START_TIME=$(date +%s)
 # ----------------------Configuration Section !!!-------------------------
 
 # MODE = sup / unsup
-MODE="sup"
+MODE="unsup"
 
 # LANG = en / ch / hi
-LANG="ch"
+LANG="en"
 
 MODELS_EN=(
-  "bert-base-uncased"
+#   "bert-base-uncased"
+  "roberta-base"
+#   distilbert-base-uncased
 )
 MODELS_CH=(
   "bert-base-chinese"
