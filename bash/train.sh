@@ -6,10 +6,10 @@ START_TIME=$(date +%s)
 # ----------------------Configuration Section !!!-------------------------
 
 # MODE = sup / unsup
-MODE="sup"
+MODE="unsup"
 
 # LANG = en / ch / hi
-LANG="hi"
+LANG="ch"
 
 MODELS_EN=(
 #   "bert-base-uncased"
@@ -18,13 +18,13 @@ MODELS_EN=(
 )
 MODELS_CH=(
 #   "bert-base-chinese"
-#   "hfl/chinese-roberta-wwm-ext"
+  "hfl/chinese-roberta-wwm-ext"
 #   "hfl/chinese-macbert-base"
 )
 MODELS_HI=(
 #   "bert-base-multilingual-cased"
 #   "xlm-roberta-base"
-  "ai4bharat/IndicBERTv2-MLM-only"
+#   "ai4bharat/IndicBERTv2-MLM-only"
 )
 
 # Training hyperparameters - currently have no time for tunning hyperparams, mention in report
