@@ -28,7 +28,7 @@ bash data/download_scripts/download_sup.sh
 
 
 echo "[2/3] Downloading Wiki unsupervised data (en/ch/hi)..."
-bash data/download_scripts/download_wiki_unsup.sh
+bash data/download_scripts/download_unsup.sh
 
 
 echo "[3/3] Downloading STS-B data (en/ch/hi)..."

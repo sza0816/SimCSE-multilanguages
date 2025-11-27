@@ -39,19 +39,19 @@ MAX_LEN=32
 
 if [[ "$LANG" == "en" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
-        DATA_PATH="./data/english/unsup/wiki1m_for_simcse.txt"
+        DATA_PATH="./data/english/unsup/wiki_english.txt"
     else
         DATA_PATH="./data/english/sup/nli_english.csv"
     fi
 elif [[ "$LANG" == "ch" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
-        DATA_PATH="./data/chinese/unsup/wiki.txt"         # !! note: modify file name 
+        DATA_PATH="./data/chinese/unsup/wiki_chinese.txt"         # !! note: modify file name 
     else
         DATA_PATH="./data/chinese/sup/nli_chinese.csv"
     fi
 elif [[ "$LANG" == "hi" ]]; then
     if [[ "$MODE" == "unsup" ]]; then
-        DATA_PATH="./data/hindi/unsup/wiki.txt"            # !!
+        DATA_PATH="./data/hindi/unsup/wiki_hindi.txt"            # !!
     else
         DATA_PATH="./data/hindi/sup/nli_hindi.csv"
     fi
