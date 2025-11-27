@@ -5,12 +5,11 @@ data/chinese
 data/english
 data/hindi
 
+# ignore all checkpoints for all languages & models & modes
+outputs/**/checkpoints/
 
-outputs/en/unsup/checkpoints
-outputs/en/sup/checkpoints
-
-outputs/en/unsup/eval/eval.log
-outputs/en/sup/eval/eval.log
+# ignore all eval.log for all languages & models & modes
+outputs/**/eval/eval.log
 
 # small sub-datasets generated for testing only
 # wiki1k.txt

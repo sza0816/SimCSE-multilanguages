@@ -1,8 +1,0 @@
-===== Starting Evaluation (unsup, en) =====
-
-sts-dev.tsv   0.6854
-
-sts-test.tsv   nan
-
-sts-train.tsv   0.6253
-

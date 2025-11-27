@@ -5,18 +5,18 @@ set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
 TASK="sup"          # sup / unsup
-LANG="en"           # en / ch / hi
+LANG="en"             # en / ch / hi
 
 MODELS_EN=(
-  "bert-base-uncased"                    # models to be filled in
+  "bert-base-uncased"
 )
 
 MODELS_CH=(
-  "bert-base-chinese"                    # models to be filled in
+  "bert-base-chinese"
 )
 
 MODELS_HI=(
-  "bert-base-multilingual-cased"             # models to be filled in
+  "bert-base-multilingual-cased"
 )
 
 if [[ "$LANG" == "en" ]]; then
@@ -56,23 +56,29 @@ for MODEL_NAME in "${MODELS[@]}"; do
     CKPT="./outputs/${LANG}/${CLEAN_MODEL}/${TASK}/checkpoints"
     EVAL_DIR="./outputs/${LANG}/${CLEAN_MODEL}/${TASK}/eval"
     mkdir -p "${EVAL_DIR}"
+
     OUTPUT_SUMMARY="${EVAL_DIR}/summary.txt"
     LOG_FILE="${EVAL_DIR}/eval.log"
+
+    # reset files
     : > "$LOG_FILE"
+    : > "$OUTPUT_SUMMARY"
 
     echo "===== Starting Evaluation (${TASK}, ${LANG}, MODEL=${MODEL_NAME}) =====" | tee -a "$LOG_FILE"
 
-    # Loop over STS files (keep English STS-B untouched)
     for FILE in "${TASK_FILES[@]}"; do
         BASENAME=$(basename "$FILE")
         echo "===== Evaluating ${BASENAME} =====" | tee -a "$LOG_FILE"
+
         python evaluate.py \
             --model_path "$CKPT" \
             --test_file "$FILE" \
             --backbone "$MODEL_NAME" 2>&1 | tee -a "$LOG_FILE" | tee tmp_eval.log
 
         SCORE=$(grep "Spearman" tmp_eval.log | awk '{print $NF}')
+
         echo "${BASENAME}   ${SCORE}" | tee -a "$LOG_FILE"
+        echo "${BASENAME}   ${SCORE}" >> "$OUTPUT_SUMMARY"
         echo "" | tee -a "$LOG_FILE"
     done
 

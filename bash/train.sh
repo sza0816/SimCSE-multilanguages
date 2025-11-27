@@ -21,7 +21,7 @@ MODELS_HI=(
   "bert-base-multilingual-cased"
 )
 
-# Training hyperparameters
+# Training hyperparameters - currently have no time for tunning hyperparams, mention in report
 EPOCHS=1
 BATCH_SIZE=64
 LR=5e-5
@@ -84,18 +84,18 @@ for MODEL_NAME in "${MODELS[@]}"; do
     mkdir -p "$LOG_DIR"
     LOG_FILE="${LOG_DIR}/train.log"
 
-    exec > >(tee "$LOG_FILE") 2>&1
-
-    python train.py \
-        --mode $MODE \
-        --lang $LANG \
-        --model_name "$MODEL_NAME" \
-        --epochs $EPOCHS \
-        --batch_size $BATCH_SIZE \
-        --lr $LR \
-        --max_len $MAX_LEN \
-        --data_path $DATA_PATH \
-        --output_dir $OUTPUT_DIR
+    {
+        python train.py \
+            --mode $MODE \
+            --lang $LANG \
+            --model_name "$MODEL_NAME" \
+            --epochs $EPOCHS \
+            --batch_size $BATCH_SIZE \
+            --lr $LR \
+            --max_len $MAX_LEN \
+            --data_path $DATA_PATH \
+            --output_dir $OUTPUT_DIR
+    } 2>&1 | tee "$LOG_FILE"
 
     echo "[DONE] Model finished: $MODEL_NAME"
     echo "Log saved to $LOG_FILE"

@@ -1,0 +1,3 @@
+sts-dev.tsv   0.6777
+sts-test.tsv   nan
+sts-train.tsv   0.6278
