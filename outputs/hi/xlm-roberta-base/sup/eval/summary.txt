@@ -1,0 +1,2 @@
+sts-dev.tsv   0.6038
+sts-test.tsv   0.5777

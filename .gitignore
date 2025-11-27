@@ -10,7 +10,3 @@ outputs/**/checkpoints/
 
 # ignore all eval.log for all languages & models & modes
 outputs/**/eval/eval.log
-
-# small sub-datasets generated for testing only
-# wiki1k.txt
-# wiki50k.txt

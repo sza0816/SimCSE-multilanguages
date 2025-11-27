@@ -5,7 +5,7 @@ set -e
 
 # ------------------------CONFIGURATION SECTION------------------------
 TASK="sup"          # sup / unsup
-LANG="ch"             # en / ch / hi
+LANG="hi"             # en / ch / hi
 
 MODELS_EN=(
 #   "bert-base-uncased"
@@ -16,11 +16,13 @@ MODELS_EN=(
 MODELS_CH=(
 #   "bert-base-chinese"
 #   "hfl/chinese-roberta-wwm-ext"
-  "hfl/chinese-macbert-base"
+#   "hfl/chinese-macbert-base"
 )
 
 MODELS_HI=(
-  "bert-base-multilingual-cased"
+#   "bert-base-multilingual-cased"
+  "xlm-roberta-base"
+#   "ai4bharat/IndicBERTv2-base"
 )
 
 if [[ "$LANG" == "en" ]]; then

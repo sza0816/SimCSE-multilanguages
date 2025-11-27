@@ -1,0 +1,30 @@
+/workspace/simcse/SimCSE-multilanguages/train.py:151: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  trainer = Trainer(
+Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+Using auto half precision backend
+***** Running training *****
+  Num examples = 131,684
+  Num Epochs = 1
+  Instantaneous batch size per device = 64
+  Total train batch size (w. parallel, distributed & accumulation) = 64
+  Gradient Accumulation steps = 1
+  Total optimization steps = 2,058
+  Number of trainable parameters = 278,043,648
+{'loss': 4.867, 'grad_norm': 1.0745658874511719, 'learning_rate': 4.523809523809524e-05, 'epoch': 0.09718172983479106}
+{'loss': 4.2182, 'grad_norm': 12.040793418884277, 'learning_rate': 4.045189504373178e-05, 'epoch': 0.19436345966958213}
+{'loss': 0.3885, 'grad_norm': 0.880280613899231, 'learning_rate': 3.5592808551992226e-05, 'epoch': 0.2915451895043732}
+{'loss': 0.0031, 'grad_norm': 0.08383256942033768, 'learning_rate': 3.073372206025267e-05, 'epoch': 0.38872691933916426}
+{'loss': 0.0018, 'grad_norm': 0.039373889565467834, 'learning_rate': 2.5874635568513122e-05, 'epoch': 0.4859086491739553}
+{'loss': 0.0011, 'grad_norm': 0.07792612910270691, 'learning_rate': 2.1015549076773565e-05, 'epoch': 0.5830903790087464}
+{'loss': 0.0008, 'grad_norm': 0.029323430731892586, 'learning_rate': 1.6156462585034015e-05, 'epoch': 0.6802721088435374}
+{'loss': 0.0008, 'grad_norm': 0.024031944572925568, 'learning_rate': 1.1297376093294461e-05, 'epoch': 0.7774538386783285}
+{'loss': 0.0008, 'grad_norm': 0.036289431154727936, 'learning_rate': 6.438289601554907e-06, 'epoch': 0.8746355685131195}
+{'loss': 0.0008, 'grad_norm': 0.059738900512456894, 'learning_rate': 1.5792031098153546e-06, 'epoch': 0.9718172983479106}
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+{'train_runtime': 471.7229, 'train_samples_per_second': 279.155, 'train_steps_per_second': 4.363, 'train_loss': 0.921587440030481, 'epoch': 1.0}
+tokenizer config file saved in ./outputs/hi/xlm-roberta-base/sup/checkpoints/tokenizer_config.json
+Special tokens file saved in ./outputs/hi/xlm-roberta-base/sup/checkpoints/special_tokens_map.json
