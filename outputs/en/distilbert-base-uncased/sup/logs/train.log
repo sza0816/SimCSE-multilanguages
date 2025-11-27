@@ -1,0 +1,41 @@
+/workspace/simcse/SimCSE-multilanguages/train.py:151: FutureWarning: `tokenizer` is deprecated and will be removed in version 5.0.0 for `Trainer.__init__`. Use `processing_class` instead.
+  trainer = Trainer(
+Detected kernel version 5.4.0, which is below the recommended minimum of 5.5.0; this can cause the process to hang. It is recommended to upgrade the kernel to the minimum version or higher.
+Using auto half precision backend
+***** Running training *****
+  Num examples = 275,601
+  Num Epochs = 1
+  Instantaneous batch size per device = 64
+  Total train batch size (w. parallel, distributed & accumulation) = 64
+  Gradient Accumulation steps = 1
+  Total optimization steps = 4,307
+  Number of trainable parameters = 66,362,880
+{'loss': 0.0849, 'grad_norm': 0.004525596275925636, 'learning_rate': 4.773624332482006e-05, 'epoch': 0.046436034362665427}
+{'loss': 0.0001, 'grad_norm': 0.0031053347047418356, 'learning_rate': 4.5414441606686795e-05, 'epoch': 0.09287206872533085}
+{'loss': 0.0002, 'grad_norm': 0.006042951252311468, 'learning_rate': 4.309263988855352e-05, 'epoch': 0.1393081030879963}
+{'loss': 0.0002, 'grad_norm': 0.0018467791378498077, 'learning_rate': 4.077083817042025e-05, 'epoch': 0.1857441374506617}
+{'loss': 0.0001, 'grad_norm': 0.0016474419971928, 'learning_rate': 3.8449036452286973e-05, 'epoch': 0.23218017181332715}
+{'loss': 0.0001, 'grad_norm': 0.004693484865128994, 'learning_rate': 3.6127234734153706e-05, 'epoch': 0.2786162061759926}
+{'loss': 0.0001, 'grad_norm': 0.0037477349396795034, 'learning_rate': 3.380543301602043e-05, 'epoch': 0.325052240538658}
+{'loss': 0.0001, 'grad_norm': 0.0006034292746335268, 'learning_rate': 3.148363129788716e-05, 'epoch': 0.3714882749013234}
+{'loss': 0.0001, 'grad_norm': 0.0009356579394079745, 'learning_rate': 2.916182957975389e-05, 'epoch': 0.4179243092639889}
+{'loss': 0.0, 'grad_norm': 0.0009894544491544366, 'learning_rate': 2.684002786162062e-05, 'epoch': 0.4643603436266543}
+{'loss': 0.0, 'grad_norm': 0.0006963391788303852, 'learning_rate': 2.4518226143487347e-05, 'epoch': 0.5107963779893198}
+{'loss': 0.0001, 'grad_norm': 0.0010938728228211403, 'learning_rate': 2.2196424425354076e-05, 'epoch': 0.5572324123519852}
+{'loss': 0.0001, 'grad_norm': 0.0006124959327280521, 'learning_rate': 1.9874622707220806e-05, 'epoch': 0.6036684467146506}
+{'loss': 0.0, 'grad_norm': 0.0029974516946822405, 'learning_rate': 1.7552820989087532e-05, 'epoch': 0.650104481077316}
+{'loss': 0.0, 'grad_norm': 0.0005568554042838514, 'learning_rate': 1.5231019270954262e-05, 'epoch': 0.6965405154399814}
+{'loss': 0.0, 'grad_norm': 0.0011671772226691246, 'learning_rate': 1.290921755282099e-05, 'epoch': 0.7429765498026468}
+{'loss': 0.0, 'grad_norm': 0.0037262632977217436, 'learning_rate': 1.0587415834687719e-05, 'epoch': 0.7894125841653122}
+{'loss': 0.0, 'grad_norm': 0.0017139088595286012, 'learning_rate': 8.265614116554447e-06, 'epoch': 0.8358486185279778}
+{'loss': 0.0, 'grad_norm': 0.0012950832024216652, 'learning_rate': 5.943812398421175e-06, 'epoch': 0.8822846528906432}
+{'loss': 0.0, 'grad_norm': 0.00042256986489519477, 'learning_rate': 3.622010680287904e-06, 'epoch': 0.9287206872533086}
+{'loss': 0.0, 'grad_norm': 0.00025584507966414094, 'learning_rate': 1.300208962154632e-06, 'epoch': 0.975156721615974}
+
+
+Training completed. Do not forget to share your model on huggingface.co/models =)
+
+
+{'train_runtime': 520.6872, 'train_samples_per_second': 529.302, 'train_steps_per_second': 8.272, 'train_loss': 0.004009044592566953, 'epoch': 1.0}
+tokenizer config file saved in ./outputs/en/distilbert-base-uncased/sup/checkpoints/tokenizer_config.json
+Special tokens file saved in ./outputs/en/distilbert-base-uncased/sup/checkpoints/special_tokens_map.json
