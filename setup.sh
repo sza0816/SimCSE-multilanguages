@@ -24,7 +24,7 @@ pip install -U "transformers>=4.40" "tokenizers>=0.15" \
 # ------------------ download data ------------------------
 
 echo "[1/3] Downloading supervised data (en/ch/hi)..."
-bash data/download_scripts/download_nli_sup.sh
+bash data/download_scripts/download_sup.sh
 
 
 echo "[2/3] Downloading Wiki unsupervised data (en/ch/hi)..."
