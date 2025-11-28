@@ -21,8 +21,8 @@ MODELS_CH=(
 
 MODELS_HI=(
 #   "bert-base-multilingual-cased"
-  "xlm-roberta-base"
-#   "ai4bharat/IndicBERTv2-MLM-only"
+#   "xlm-roberta-base"
+  "ai4bharat/IndicBERTv2-MLM-only"
 )
 
 if [[ "$LANG" == "en" ]]; then
