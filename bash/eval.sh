@@ -20,8 +20,8 @@ MODELS_CH=(
 )
 
 MODELS_HI=(
-  "bert-base-multilingual-cased"
-#   "xlm-roberta-base"
+#   "bert-base-multilingual-cased"
+  "xlm-roberta-base"
 #   "ai4bharat/IndicBERTv2-MLM-only"
 )
 
