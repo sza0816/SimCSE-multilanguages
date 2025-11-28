@@ -9,7 +9,7 @@ START_TIME=$(date +%s)
 MODE="unsup"
 
 # LANG = en / ch / hi
-LANG="ch"
+LANG="hi"
 
 MODELS_EN=(
 #   "bert-base-uncased"
@@ -19,10 +19,10 @@ MODELS_EN=(
 MODELS_CH=(
 #   "bert-base-chinese"
 #   "hfl/chinese-roberta-wwm-ext"
-  "hfl/chinese-macbert-base"
+#   "hfl/chinese-macbert-base"
 )
 MODELS_HI=(
-#   "bert-base-multilingual-cased"
+  "bert-base-multilingual-cased"
 #   "xlm-roberta-base"
 #   "ai4bharat/IndicBERTv2-MLM-only"
 )
