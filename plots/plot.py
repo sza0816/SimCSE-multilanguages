@@ -35,28 +35,36 @@ sns.set(style="whitegrid", font_scale=1.2)
 
 
 # ==========================================================
-# 1. Supervised Spearman vs Language (Grouped Bar Chart)
+# 1. 
 # ==========================================================
-plt.figure(figsize=(10, 6))
-plt.ylim(0, 1.0)
-sns.barplot(data=df, x="Language", y="Supervised", hue="Model")
-plt.title("Supervised Spearman by Language", fontweight="bold")
-plt.ylabel("Spearman Correlation", fontweight="bold")
-plt.tight_layout()
-plt.savefig(os.path.join(OUTPUT_DIR, "supervised_by_language.png"), dpi=300)
-plt.close()
+
 
 
 # ==========================================================
-# 2. Unsupervised Spearman vs Language (Grouped Bar Chart)
+# 2. Supervised − Unsupervised gap per model
 # ==========================================================
-plt.figure(figsize=(10, 6))
-plt.ylim(0, 1.0)
-sns.barplot(data=df, x="Language", y="Unsupervised", hue="Model")
-plt.title("Unsupervised Spearman by Language", fontweight="bold")
-plt.ylabel("Spearman Correlation", fontweight="bold")
+df_gap = df.copy()
+df_gap["Gap"] = df_gap["Supervised"] - df_gap["Unsupervised"]
+
+plt.figure(figsize=(10, 4))
+
+sns.barplot(
+    data=df_gap,
+    x="Model",
+    y="Gap",
+    hue="Language",
+    width=0.6
+)
+plt.xticks(rotation=20, ha="right")
+
+plt.title("Supervised − Unsupervised Gap per Model", fontweight="bold")
+plt.ylabel("Score Gap (Sup − Unsup)", fontweight="bold")
+plt.xlabel("Model", fontweight="bold")
+
+plt.legend(title="Language", fontsize=9, title_fontsize=10, loc="upper right")
+
 plt.tight_layout()
-plt.savefig(os.path.join(OUTPUT_DIR, "unsupervised_by_language.png"), dpi=300)
+plt.savefig(os.path.join(OUTPUT_DIR, "sup_unsup_gap_per_model.png"), dpi=300)
 plt.close()
 
 
