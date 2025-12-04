@@ -157,8 +157,9 @@ ax = sns.barplot(
 )
 
 plt.xticks(rotation=20, ha="right")
-plt.title("All Models: Supervised vs Unsupervised (Grouped by Language)")
-plt.ylabel("Spearman Score")
+plt.title("All Models: Supervised vs Unsupervised", fontweight="bold")
+plt.ylabel("Spearman Score", fontweight="bold")
+plt.xlabel("Model_with_gap", fontweight="bold")
 
 # Compute x-coordinates for each real tick
 xticks = ax.get_xticks()
@@ -175,15 +176,17 @@ chinese_end = chinese_start + len(chinese_models) - 1
 hindi_start = chinese_end + 1
 hindi_end = hindi_start + len(hindi_models) - 1
 
-y_top = 0.92  # safely below title but above bars
+y_top = 1.0
 
 def draw_group_line(x_start_idx, x_end_idx, label):
     x_start = xticks[x_start_idx]
     x_end = xticks[x_end_idx]
-    plt.plot([x_start, x_end], [y_top - 0.01, y_top - 0.01], color="black", linewidth=1.5)
+
+    # lower the line by ~0.03 and the label by ~0.04
+    plt.plot([x_start, x_end], [y_top - 0.17, y_top - 0.17], color="black", linewidth=1.5)
     plt.text(
         (x_start + x_end) / 2,
-        y_top - 0.02,   # lowered label for cleaner spacing
+        y_top - 0.16,
         label,
         ha="center",
         va="bottom",
@@ -194,6 +197,7 @@ draw_group_line(english_start, english_end, "English")
 draw_group_line(chinese_start, chinese_end, "Chinese")
 draw_group_line(hindi_start, hindi_end, "Hindi")
 
+plt.legend(title="Setting", loc="upper right")
 plt.tight_layout()
 plt.savefig(os.path.join(OUTPUT_DIR, "all_models_sup_unsup_grouped.png"), dpi=300)
 plt.close()
